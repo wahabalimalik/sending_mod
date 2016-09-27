@@ -1,0 +1,18 @@
+<openerp>
+    <data>
+        <record id="firm_partner_analytics_view_form" model="ir.ui.view">
+            <field name="name">firm_partner_analytics_view_form</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="account.view_account_analytic_line_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="firm_partner"/>
+                </xpath>
+                <xpath expr="//field[@name='firm_partner']" position="after">
+                    <button name="update_btn" type="object" string="Update"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
