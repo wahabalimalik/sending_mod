@@ -5,5 +5,5 @@ from openerp import models, fields, api
 class assets_and_liabilities(models.Model):
     _name = 'assets_and_liabilities.assets_and_liabilities'
 
-    name = fields.Char()
+    name = fields.Char(required=True)
     code = fields.Char()
