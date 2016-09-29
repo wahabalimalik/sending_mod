@@ -174,7 +174,14 @@
                                     <!-- Page-"Comparative Wealth Statement Summary"-START -->
                                         <page string="Comparative Wealth Statement Summary">
                                             <!-- Workbook-"Assets and Liability"-START -->
-                                            <!-- button Place -->
+                                                <group name="assets_and_liability" string="Assets and Liability">
+                                                    <button
+                                                        type="action"
+                                                        name="%(action_view_wizard)d"
+                                                        string="Create"
+                                                        class="oe_highlight"
+                                                        help="Finish Order"/>
+                                                </group>
                                                 <field name="wealth_statement_id" attrs="{'invisible': [('all_years', '==', True)]}" nolabel='1'>
                                                     <tree editable="bottom">
                                                         <field name="description"/>
@@ -543,11 +550,3 @@
         <!--!!______________________[Tax Computation-ENDS]__________________________________!!-->
     </data>
 </openerp>
-<!-- <group name="assets_and_liability" string="Assets and Liability">
-    <button
-        type="action"
-        name="%(action_view_wizard)d"
-        string="Create"
-        class="oe_highlight"
-        help="Finish Order"/>
-</group> -->
