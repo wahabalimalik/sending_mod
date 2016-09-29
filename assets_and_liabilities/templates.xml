@@ -14,16 +14,14 @@
                 </form>
             </field>
         </record>
-        <record model="ir.actions.act_window" id="action_configuration">
+        <record model="ir.actions.act_window" id="action_assets_and_liabilities">
             <field name="name">Assets and Liabilities Type</field>
             <field name="res_model">assets_and_liabilities.assets_and_liabilities</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <!-- <field name="context">{'search_default_filter_draft':1}</field> -->
-            <!-- <field name="search_view_id" ref="income_tax_returns_search_view"/> -->
         </record>
 
         <menuitem name="Configuration" id="menu_configuration_child" parent="income_tax_return.menu_income_tax_returns"  sequence="1"/>
-        <menuitem name="Assets and Liabilities Type" id="menu_assets_and_liabilities_child" parent="menu_configuration_child" action="action_configuration" sequence="1212"/>
+        <menuitem name="Assets and Liabilities Type" id="menu_assets_and_liabilities_child" parent="menu_configuration_child" action="action_assets_and_liabilities" sequence="1212"/>
     </data>
 </openerp>
