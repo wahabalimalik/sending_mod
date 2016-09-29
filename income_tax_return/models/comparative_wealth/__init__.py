@@ -6,4 +6,6 @@ from . import receipts
 from . import reconciliation_balance
 from . import wealth_reconciliation_expense
 from . import wealth_reconciliation_income
-from . import wealth_statement
+from . import wealth_assets
+from . import wealth_liability
+from . import wealth_reconciliation_opening

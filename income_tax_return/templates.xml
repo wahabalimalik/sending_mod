@@ -133,7 +133,7 @@
                                         <field name="group"/>
                                         
                                         <!-- Group-"Reconciliation Difference"-START -->
-                                            <group name="reconciliation_difference" string="Reconciliation Difference">
+                                            <!-- <group name="reconciliation_difference" string="Reconciliation Difference">
                                                 <field name="total_2005" invisible="0" string="Year 2005" attrs="{'invisible': [('total_2005', '==', 0)]}"/>
                                                 <field name="total_2006" invisible="0" string="Year 2006" attrs="{'invisible': [('total_2006', '==', 0)]}"/>
                                                 <field name="total_2007" invisible="0" string="Year 2007" attrs="{'invisible': [('total_2007', '==', 0)]}"/>
@@ -150,11 +150,11 @@
                                                 <field name="total_2018" invisible="0" string="Year 2018" attrs="{'invisible': [('total_2018', '==', 0)]}"/>
                                                 <field name="total_2019" invisible="0" string="Year 2019" attrs="{'invisible': [('total_2019', '==', 0)]}"/>
                                                 <field name="total_2020" invisible="0" string="Year 2020" attrs="{'invisible': [('total_2020', '==', 0)]}"/>
-                                            </group>
+                                            </group> -->
                                         <!-- Group-"Reconciliation Difference"-ENDS -->
 
                                         <!-- Group-"Reconciliation Difference"-START -->
-                                            <group name="cash_difference" string="Cash Difference">
+                                            <!-- <group name="cash_difference" string="Cash Difference">
                                                 <field name="ttl_2011" invisible="0" string="Year 2011" attrs="{'invisible': [('ttl_2011', '==', 0)]}"/>
                                                 <field name="ttl_2012" invisible="0" string="Year 2012" attrs="{'invisible': [('ttl_2012', '==', 0)]}"/>
                                                 <field name="ttl_2013" invisible="0" string="Year 2013" attrs="{'invisible': [('ttl_2013', '==', 0)]}"/>
@@ -165,16 +165,16 @@
                                                 <field name="ttl_2018" invisible="0" string="Year 2018" attrs="{'invisible': [('ttl_2018', '==', 0)]}"/>
                                                 <field name="ttl_2019" invisible="0" string="Year 2019" attrs="{'invisible': [('ttl_2019', '==', 0)]}"/>
                                                 <field name="ttl_2020" invisible="0" string="Year 2020" attrs="{'invisible': [('ttl_2020', '==', 0)]}"/>
-                                            </group>
+                                            </group> -->
                                         <!-- Group-"Reconciliation Difference"-ENDS -->
 
                                     </group>
                                 </group>
                                 <notebook>
-                                    <!-- Page-"Comparative Wealth Statement Summary"-START -->
-                                        <page string="Comparative Wealth Statement Summary">
-                                            <!-- Workbook-"Assets and Liability"-START -->
-                                                <group name="assets_and_liability" string="Assets and Liability">
+                                    <!-- Page-"Wealth Statement"-START -->
+                                        <page string="Wealth Statement">
+                                            <!-- Workbook-"Assets"-START -->
+                                                <group name="assets" string="Assets">
                                                     <button
                                                         type="action"
                                                         name="%(action_view_wizard)d"
@@ -182,18 +182,20 @@
                                                         class="oe_highlight"
                                                         help="Finish Order"/>
                                                 </group>
-                                                <field name="wealth_statement_id" attrs="{'invisible': [('all_years', '==', True)]}" nolabel='1'>
+                                                <field name="wealth_assets_id" attrs="{'invisible': [('all_years', '==', True)]}" nolabel='1'>
                                                     <tree editable="bottom">
                                                         <field name="description"/>
+                                                        <field name="types"/>
                                                         <field name="y2014" sum="Total"/>
                                                         <field name="y2015" sum="Total"/>
                                                         <field name="y2016" sum="Total"/>
                                                     </tree>
                                                 </field>
                                                 
-                                                <field name="wealth_statement_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
+                                                <field name="wealth_assets_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
                                                     <tree editable="bottom">
                                                         <field name="description"/>
+                                                        <field name="types"/>
                                                         <field name="y2005" sum="Total"/>
                                                         <field name="y2006" sum="Total"/>
                                                         <field name="y2007" sum="Total"/>
@@ -213,60 +215,26 @@
 
                                                     </tree>
                                                 </field>
-                                            <!-- Workbook-"Assets and Liability"-ENDS -->
+                                            <!-- Workbook-"Assets"-ENDS -->
 
-                                            <!-- Workbook-"Income"-START -->
-                                                <group name="income" string="Income">
-                                                </group>
-                                                <field name="wealth_reconciliation_income_id" attrs="{'invisible': [('all_years', '==', True)]}" nolabel='1'>
-                                                    <tree editable="bottom">
-                                                        <field name="description"/>
-                                                        <field name="y2014" sum="Total"/>
-                                                        <field name="y2015" sum="Total"/>
-                                                        <field name="y2016" sum="Total"/>
-                                                    </tree>
-                                                </field>
-                                                 
-                                                <field name="wealth_reconciliation_income_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
-                                                    <tree editable="bottom">
-                                                        <field name="description"/>
-                                                        <field name="y2005" sum="Total"/>
-                                                        <field name="y2006" sum="Total"/>
-                                                        <field name="y2007" sum="Total"/>
-                                                        <field name="y2008" sum="Total"/>
-                                                        <field name="y2009" sum="Total"/>
-                                                        <field name="y2010" sum="Total"/>
-                                                        <field name="y2011" sum="Total"/>
-                                                        <field name="y2012" sum="Total"/>
-                                                        <field name="y2013" sum="Total"/>
-                                                        <field name="y2014" sum="Total"/>
-                                                        <field name="y2015" sum="Total"/>
-                                                        <field name="y2016" sum="Total"/>
-                                                        <field name="y2017" sum="Total"/>
-                                                        <field name="y2018" sum="Total"/>
-                                                        <field name="y2019" sum="Total"/>
-                                                        <field name="y2020" sum="Total"/>
-
-                                                    </tree>
-                                                </field>
-                                            <!-- Workbook-"Income"-ENDS -->
-
-                                            <!-- Workbook-"Expense"-START -->
-                                                <group name="expense" string="Expense">
+                                            <!-- Workbook-"Liability"-START -->
+                                                <group name="liability" string="Liability">
                                                 </group>
 
-                                                <field name="wealth_reconciliation_expense_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
+                                                <field name="wealth_liability_id" attrs="{'invisible': [('all_years', '==', True)]}" nolabel='1'>
                                                     <tree editable="bottom">
                                                         <field name="description"/>
+                                                        <field name="types"/>
                                                         <field name="y2014" sum="Total"/>
                                                         <field name="y2015" sum="Total"/>
                                                         <field name="y2016" sum="Total"/>
                                                     </tree>
                                                 </field>
                                                 
-                                                <field name="wealth_reconciliation_expense_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
+                                                <field name="wealth_liability_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
                                                     <tree editable="bottom">
                                                         <field name="description"/>
+                                                        <field name="types"/>
                                                         <field name="y2005" sum="Total"/>
                                                         <field name="y2006" sum="Total"/>
                                                         <field name="y2007" sum="Total"/>
@@ -283,11 +251,12 @@
                                                         <field name="y2018" sum="Total"/>
                                                         <field name="y2019" sum="Total"/>
                                                         <field name="y2020" sum="Total"/>
+
                                                     </tree>
                                                 </field>
-                                            <!-- Workbook-"Expense"-ENDS -->
+                                            <!-- Workbook-"Liability"-ENDS -->
                                         </page>
-                                    <!-- Page-"Comparative Wealth Statement Summary"-ENDS -->
+                                    <!-- Page-"Wealth Statement"-ENDS -->
 
                                     <!-- Page-"Cash Reconciliation"-START -->
                                         <page string="Cash Reconciliation">
@@ -409,6 +378,119 @@
                                             <!--  -->
                                         </page>
                                     <!-- Page-"Cash Reconciliation"-ENDS -->
+
+                                    <!-- Page-"Net Wealth Reconciliation"-START -->
+                                        <page string="Net Wealth Reconciliation">
+
+                                            <!-- Workbook-"Opening"-START -->
+                                                <group name="opening" string="Opening">
+                                                </group>
+                                                <field name="wealth_reconciliation_opening_id" attrs="{'invisible': [('all_years', '==', True)]}" nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="description"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                                 
+                                                <field name="wealth_reconciliation_opening_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="description"/>
+                                                        <field name="y2005" sum="Total"/>
+                                                        <field name="y2006" sum="Total"/>
+                                                        <field name="y2007" sum="Total"/>
+                                                        <field name="y2008" sum="Total"/>
+                                                        <field name="y2009" sum="Total"/>
+                                                        <field name="y2010" sum="Total"/>
+                                                        <field name="y2011" sum="Total"/>
+                                                        <field name="y2012" sum="Total"/>
+                                                        <field name="y2013" sum="Total"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                        <field name="y2017" sum="Total"/>
+                                                        <field name="y2018" sum="Total"/>
+                                                        <field name="y2019" sum="Total"/>
+                                                        <field name="y2020" sum="Total"/>
+
+                                                    </tree>
+                                                </field>
+                                            <!-- Workbook-"Opening"-ENDS -->
+
+                                            <!-- Workbook-"Income"-START -->
+                                                <group name="income" string="Income">
+                                                </group>
+                                                <field name="wealth_reconciliation_income_id" attrs="{'invisible': [('all_years', '==', True)]}" nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="description"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                                 
+                                                <field name="wealth_reconciliation_income_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="description"/>
+                                                        <field name="y2005" sum="Total"/>
+                                                        <field name="y2006" sum="Total"/>
+                                                        <field name="y2007" sum="Total"/>
+                                                        <field name="y2008" sum="Total"/>
+                                                        <field name="y2009" sum="Total"/>
+                                                        <field name="y2010" sum="Total"/>
+                                                        <field name="y2011" sum="Total"/>
+                                                        <field name="y2012" sum="Total"/>
+                                                        <field name="y2013" sum="Total"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                        <field name="y2017" sum="Total"/>
+                                                        <field name="y2018" sum="Total"/>
+                                                        <field name="y2019" sum="Total"/>
+                                                        <field name="y2020" sum="Total"/>
+
+                                                    </tree>
+                                                </field>
+                                            <!-- Workbook-"Income"-ENDS -->
+
+                                            <!-- Workbook-"Expense"-START -->
+                                                <group name="expense" string="Expense">
+                                                </group>
+
+                                                <field name="wealth_reconciliation_expense_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="description"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                                
+                                                <field name="wealth_reconciliation_expense_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="description"/>
+                                                        <field name="y2005" sum="Total"/>
+                                                        <field name="y2006" sum="Total"/>
+                                                        <field name="y2007" sum="Total"/>
+                                                        <field name="y2008" sum="Total"/>
+                                                        <field name="y2009" sum="Total"/>
+                                                        <field name="y2010" sum="Total"/>
+                                                        <field name="y2011" sum="Total"/>
+                                                        <field name="y2012" sum="Total"/>
+                                                        <field name="y2013" sum="Total"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                        <field name="y2017" sum="Total"/>
+                                                        <field name="y2018" sum="Total"/>
+                                                        <field name="y2019" sum="Total"/>
+                                                        <field name="y2020" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                            <!-- Workbook-"Expense"-ENDS -->
+                                        </page>
+                                    <!-- Page-"Net Wealth Reconciliation"-ENDS -->
 
                                 </notebook>
                             </sheet>
