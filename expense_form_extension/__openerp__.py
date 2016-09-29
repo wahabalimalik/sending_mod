@@ -15,7 +15,7 @@
     'category': 'Uncategorized',
     'version': '0.1',
 
-    'depends': ['base','hr_expense'],
+    'depends': ['base','hr_expense','account','point_of_sale','hr_contract'],
 
     # always loaded
     'data': [

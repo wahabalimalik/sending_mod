@@ -6,17 +6,31 @@
             <field name="inherit_id" ref="hr_expense.view_expenses_form"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
+
                 <xpath expr="//field[@name='department_id']" position="after">
                     <field name="advance"/>
                     <field name="returned"/>
                     <field name="net"/>
-
                 </xpath>
+
+                <xpath expr="//field[@name='user_valid']" position="after">
+                    <div style="padding-top: 34px;">
+                        <button name="advance_btn" type="object" string="Update" class="oe_highlight"/>
+                    </div>
+                </xpath>
+                <xpath expr="//button[@name='advance_btn']" position="after">
+                    <div style="padding-top: 0px;">
+                        <button name="returned_btn" type="object" string="Update" class="btn btn-primary"/>
+                    </div>
+                </xpath>
+                
+                <!-- ///////////////////////////////////////////////////////////// -->
+
                 <xpath expr="//button[@name='done']" position="replace">
-                     <button name="done"  string="Waiting Payment" type="workflow" states="accepted" groups="account.group_account_invoice" class="oe_highlight"/>
+                    <button name="done"  string="Waiting Payment" type="workflow" states="accepted" groups="account.group_account_invoice" class="oe_highlight"/>
                 </xpath>
                 <xpath expr="//button[@name='action_view_move']" position="replace">
-                     <button name="my_btn"  string="Paid" states="done" type="object" class="oe_highlight"/>
+                    <button name="my_btn"  string="Paid" states="done" type="object" class="oe_highlight"/>
                 </xpath>
                 <xpath expr="//page[@string='Accounting']" position="replace">
                 </xpath>
@@ -25,6 +39,20 @@
                 </xpath>
                 <xpath expr="//field[@name='line_ids']/tree/field[@name='analytic_account']" position="replace">
                 </xpath>
+            </field>
+        </record>
+        <record id="expense_form_extension_view_form_1" model="ir.ui.view">
+            <field name="name">expense_form_extension_view_form_1</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form2"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="after">
+                    <field name="employee"/>
+                </xpath>
+                <!-- <xpath expr="//field[@name='line_ids']/tree/field[@name='employee']" position="after">
+                    <field name="expnse_id"/>
+                </xpath> -->
             </field>
         </record>
     </data>
