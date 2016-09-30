@@ -38,7 +38,7 @@ class tax_computation(models.Model):
 	tax_credits_id                = fields.One2many('tax.credits', 'tax_credits_id')
 	tax_computation_ftr_id        = fields.One2many('income.under.ftr', 'income_under_ftr_id')
 	tax_deduct_link_id            = fields.One2many('tax.deduct', 'tax_deduct_id')
-	tax_rebate_id            = fields.One2many('income.rebate', 'income_rebate_id')
+	tax_rebate_id                 = fields.One2many('income.rebate', 'income_rebate_id')
 
 	@api.onchange('tax_computation_ntr_id')
 	def _onchange_ntr_id(self):
@@ -50,7 +50,7 @@ class tax_computation(models.Model):
 		self.deductible_allowance = sum(line.tax for line in self.tax_computation_deductible_id)
 
 	@api.onchange('tax_rebate_id')
-	def _onchange_credits_id(self):
+	def _onchange_rebate_id(self):
 		self.rebate = sum(line.tax for line in self.tax_rebate_id)
 
 	@api.onchange('tax_credits_id')

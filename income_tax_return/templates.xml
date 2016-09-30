@@ -574,6 +574,7 @@
                                                 <field name="tax_credits"/>
                                                 <field name="refund_adjust"/>
                                                 <field name="tax_ratio"/>
+                                                <field name="rebate"/>
                                             </group>
                                             <group name="tax_under_ntr" string="Tax under FTR" col="2">
                                                 <field name="income_under_ftr"/>
