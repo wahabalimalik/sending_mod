@@ -8,9 +8,9 @@ from openerp import models, fields, api
 class comparative_wealth(models.Model):
 	_name                             = 'comparative.wealth'
 	_inherit                          = ['mail.thread', 'ir.needaction_mixin']
-	client_name                       = fields.Many2one('res.partner','Client Name', required=True)
-	_defaults                         = { 'name': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'comparative.wealth'), }
-	name                              = fields.Char(string="Name")
+	name                       = fields.Many2one('res.partner','Client Name', required=True)
+	# _defaults                         = { 'name': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'comparative.wealth'), }
+	# name                              = fields.Char(string="Name")
 	all_years                         = fields.Boolean(string="All Years", default=False)
 	group                             = fields.Many2one('res.partner')
 

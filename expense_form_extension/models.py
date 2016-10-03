@@ -3,6 +3,7 @@
 from openerp import models, fields, api
 from openerp.exceptions import ValidationError
 from openerp.exceptions import Warning
+from datetime import datetime as dt
 
 class expense_form_extension(models.Model):
 
@@ -104,15 +105,19 @@ class loan_management(models.Model):
 		for x in active_class:
 			start_date = str(x.slip_id.date_from)
 			end_date = str(x.slip_id.date_to)
-			if x.code == 'BASIC' and int(start_date[:4]) >= int(self.loan_start_date[:4]) and int(start_date[5:7]) >= int(self.loan_start_date[5:7]) and int(start_date[8:]) >= int(self.loan_start_date[8:]) and int(end_date[:4]) <= int(self.loan_end_date[:4]) and int(end_date[5:7]) <= int(self.loan_end_date[5:7]) and int(end_date[8:]) <= int(self.loan_end_date[8:]) :
-				for y in self:
-					y.pringle.create({
-						'name'     : x.name,
-						'date'     : x.date,
-						'slip_id'  : x.slip_id.id,
-						'amount'   : x.amount,
-						'cringle'  : y.id
-						})
+			start_date = dt.strptime(start_date[2:], "%y-%m-%d")
+			end_date   = dt.strptime(end_date[2:], "%y-%m-%d")
+			if x.date != False:
+				cc_date = dt.strptime(x.date[2:], "%y-%m-%d")
+				if x.code == 'BASIC' and start_date <= cc_date and cc_date<=end_date:
+					for y in self:
+						y.pringle.create({
+							'name'     : x.name,
+							'date'     : x.date,
+							'slip_id'  : x.slip_id.id,
+							'amount'   : x.amount,
+							'cringle'  : y.id
+							})
 class loan_management_1122(models.Model):
 	_name = 'loan.1122'
 	name = fields.Char()

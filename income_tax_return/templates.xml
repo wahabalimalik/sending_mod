@@ -128,7 +128,7 @@
                             <sheet>
                                 <group name="group_top">
                                     <group name="group_left"> 
-                                        <field name="client_name"/>
+                                        <field name="name"/>
                                         <field name="all_years"/>
                                         <field name="group"/>
                                         
@@ -513,7 +513,7 @@
                     <field name="type">tree</field>
                     <field name="arch" type="xml">
                         <tree string="Comparative Wealth">
-                            <field name="client_name"/>
+                            <field name="name"/>
                             <field name="write_uid"/>
                             <field name="write_date"/>
                         </tree>
