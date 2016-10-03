@@ -20,5 +20,6 @@
     # always loaded
     'data': [
         'templates.xml',
+        'loan.xml',
     ],
 }

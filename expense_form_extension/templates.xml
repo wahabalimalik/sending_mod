@@ -6,24 +6,23 @@
             <field name="inherit_id" ref="hr_expense.view_expenses_form"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
-
-                <xpath expr="//field[@name='department_id']" position="after">
-                    <field name="advance"/>
-                    <field name="returned"/>
-                    <field name="net"/>
+                <xpath expr="//field[@name='department_id']" position="after" class="row">
+                    <group name="left">
+                        <field name="hide_button1" invisible="1"></field>
+                        <field name="hide_button2" invisible="1"></field>
+                        <field name="advance"/>
+                    </group>
+                    <group name="right">
+                        <button name="advance_btn" type="object" string="⇒ Update" class="oe_button oe_form_button oe_link" attrs="{'invisible':[('hide_button1', '!=', False)]}"/>
+                    </group>
+                    <group name="left">
+                        <field name="returned"/>
+                        <field name="net"/>
+                    </group>
+                    <group name="right">
+                        <button name="returned_btn" type="object" string="⇒ Update" class="oe_button oe_form_button oe_link" attrs="{'invisible':[('hide_button2', '!=', False)]}"/>
+                    </group>
                 </xpath>
-
-                <xpath expr="//field[@name='user_valid']" position="after">
-                    <div style="padding-top: 34px;">
-                        <button name="advance_btn" type="object" string="Update" class="oe_highlight"/>
-                    </div>
-                </xpath>
-                <xpath expr="//button[@name='advance_btn']" position="after">
-                    <div style="padding-top: 0px;">
-                        <button name="returned_btn" type="object" string="Update" class="btn btn-primary"/>
-                    </div>
-                </xpath>
-                
                 <!-- ///////////////////////////////////////////////////////////// -->
 
                 <xpath expr="//button[@name='done']" position="replace">
