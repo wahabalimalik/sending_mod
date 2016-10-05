@@ -19,6 +19,7 @@
                                     <field name="loan_start_date"/>
                                     <field name="loan_end_date"/>
                                     <field name="installments"/>
+                                    <field name="amount_per_month"/>
                                     <field name="loan_paid"/>
                                     <field name="loan_remaining"/>
                                     
@@ -56,17 +57,6 @@
                             <!-- Workbook-"Assets"-ENDS -->
                         <!-- </page> -->
                     <!-- Page-"Loan Managment"-ENDS -->
-                </xpath>
-            </field>
-        </record>
-        <record id="expense_form_extension_adding_date_view_form" model="ir.ui.view">
-            <field name="name">expense_form_extension_adding_date_view_form</field>
-            <field name="model">hr.payslip.line</field>
-            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_line_form"/>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='name']" position="after">
-                        <field name="date"/>
                 </xpath>
             </field>
         </record>
