@@ -122,7 +122,7 @@ class loan_management(models.Model):
 			end_date   = dt.strptime(end_date[2:], "%y-%m-%d")
 			start_date_1  = dt.strptime(self.loan_start_date[2:], "%y-%m-%d")
 			end_date_1   = dt.strptime(self.loan_end_date[2:], "%y-%m-%d")
-			if x.code == 'loan_ded' and start_date <= start_date_1 and end_date_1<=end_date:
+			if x.code == 'loan_ded' and start_date >= start_date_1 and end_date_1>=end_date:
 				for y in self:
 					y.pringle.create({
 						'name'     : x.name,
@@ -148,33 +148,7 @@ class hr_employee(models.Model):
         duration = 0.0
         tsheet_obj = self.env['hr.expense.expense']
         timesheets = tsheet_obj.search([('employee_id', '=', self.id), 
-            ('loan_start_date', '>=', payslip.date_from), ('loan_end_date', '<=', payslip.date_to)])
-        # if self.user_id: #also add timesheets if only user is selected 
-        #     tsheet_add = tsheet_obj.search([('user_id', '=', self.user_id.id), 
-        #     ('date', '>=', payslip.date_from), ('date', '<=', payslip.date_to), ('officer', '=', False)])
-        #     timesheets += tsheet_add
-        for tsheet in timesheets: #counting duration from timesheets
+            ('loan_start_date', '<=', payslip.date_from), ('loan_end_date', '>=', payslip.date_to)])
+        for tsheet in timesheets:
             duration += tsheet.amount_per_month 
-
-
         return duration
-
-    # @api.model
-    # def loan_ded(self, payslip):
-    #     # duration = 0.0
-        
-
-
-
-
-
-
-        # tsheet_obj = self.env['hr.expense.expense']
-        # timesheets = tsheet_obj.search([('employee_id', '=', self.id), 
-        #     ('loan_start_date', '>=', payslip.date_from), ('loan_end_date', '<=', payslip.date_to)])
-        # for  x in timesheets:
-        # 	print "ccccccccccccccccccccccccc"
-        # 	timesheet += x.amount_per_month
-
-        # return timesheet
-        # 
