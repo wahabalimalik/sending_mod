@@ -86,13 +86,15 @@ class loan_management(models.Model):
 	loan_end_date    = fields.Date('End Date', required=True)
 	installments     = fields.Integer(string="No of Installment")
 	loan_paid        = fields.Float(string="Loan Paid" ,compute="_compute_amount_paid")
-	loan_remaining   = fields.Float(string="Loan Remaining")
+	loan_remaining   = fields.Float(string="Loan Remaining" ,compute="_compute_amount_paid")
 	amount_per_month = fields.Float(string="Amount per Month")
 	pringle          = fields.One2many('loan.1122','cringle')
 
 	@api.multi
 	def _compute_amount_paid(self):
 		self.loan_paid = sum(line.amount for line in self.pringle)
+		self.loan_remaining = self.advance - self.loan_paid
+
 
 	@api.onchange('installments')
 	def _onchange_amount_per_month(self):
@@ -103,12 +105,13 @@ class loan_management(models.Model):
 		return
 
 
-	@api.onchange('advance','loan_paid')
-	# @api.depends('advance','loan_paid','loan')
-	def _onchange_amount(self):
-		if self.loan != False:
-			self.loan_remaining= self.advance - self.loan_paid
-		return
+	# @api.onchange('loan_paid')
+	# # @api.depends('advance','loan_paid','loan')
+	# def _onchange_amount(self):
+	# 	print "xxxxxxxxxxxxx"
+		# if self.loan != False:
+		# 	self.loan_remaining= self.advance - self.loan_paid
+		# return
 
 	@api.multi
 	def show_btn(self):

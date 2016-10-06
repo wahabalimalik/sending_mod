@@ -28,16 +28,16 @@
                                 <group name="group_top" string="Payment History">
                                     <button name="show_btn" type="object" string="⇒ Update" class="oe_button oe_form_button oe_link"/>
                                 </group>
-                                    <!-- Workbook-"Assets"-START -->
-                                        <field name="pringle" >
-                                            <tree editable="bottom">
-                                                <field name="name"/>
-                                                <field name="date"/>
-                                                <field name="slip_id"/>
-                                                <field name="amount"/>
-                                            </tree>
-                                        </field>
-                                    <!-- Workbook-"Assets"-ENDS -->
+                                <!-- Workbook-"Assets"-START -->
+                                    <field name="pringle" >
+                                        <tree editable="bottom">
+                                            <field name="name"/>
+                                            <field name="date"/>
+                                            <field name="slip_id"/>
+                                            <field name="amount"/>
+                                        </tree>
+                                    </field>
+                                <!-- Workbook-"Assets"-ENDS -->
                         </page>
                     <!-- Page-"Loan Managment"-ENDS -->
                 </xpath>
