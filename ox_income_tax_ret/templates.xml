@@ -176,8 +176,8 @@
                                             <!-- Workbook-"Assets and Liability"-START -->
                                                 <group name="assets_and_liability" string="Assets and Liability">
                                                     <button
-                                                        type="action"
-                                                        name="%(action_view_wizard)d"
+                                                        type="object"
+                                                        name="button_open_wizard_method"
                                                         string="Create"
                                                         class="oe_highlight"
                                                         help="Finish Order"/>
