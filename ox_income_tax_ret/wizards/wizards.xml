@@ -27,7 +27,7 @@
             </field>
         </record>
 
-        <record id="action_view_wizard" model="ir.actions.act_window">
+        <!--<record id="action_view_wizard" model="ir.actions.act_window">
             <field name="name">Hi i am a wizard</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">dedy.yuristiawan.wizard</field>
@@ -35,6 +35,6 @@
             <field name="view_mode">form</field>
             <field name="view_id" ref="dedy_yuristiawan_wiz"/>
             <field name="target">new</field>
-        </record>
+        </record> -->
     </data>
 </openerp>
