@@ -96,8 +96,8 @@ class loan_management(models.Model):
 		self.pringle.unlink()
 		nn = str(self.employee_id.name)
 		active_class =self.env['hr.payslip.line'].search([('employee_id','=',nn)])
-		start_date_1  = dt.strptime(self.loan_start_date[2:], "%y-%m-%d")
-		end_date_1   = dt.strptime(self.loan_end_date[2:], "%y-%m-%d")
+		start_date_1  = dt.strptime(self.loan_start_date, "%Y-%m-%d")
+		end_date_1   = dt.strptime(self.loan_end_date, "%Y-%m-%d")
 		for x in active_class:
 			start_date = str(x.slip_id.date_from)
 			end_date = str(x.slip_id.date_to)
@@ -114,7 +114,7 @@ class loan_management(models.Model):
 						})
 		# ---------------------------------------------------------
 		r = rd.relativedelta(end_date_1, start_date_1)
-		self.installments = r.months
+		self.installments = r.months +1
 		# ---------------------------------------------------------
 		if self.loan != False and self.installments != 0:
 			self.amount_per_month= self.advance / self.installments
