@@ -207,3 +207,15 @@ class comparative_wealth(models.Model):
 		self.total_2019 = self.total_summery_2019 - (self.total_income_2019 - self.total_expense_2019)
 		self.total_2020 = self.total_summery_2020 - (self.total_income_2020 - self.total_expense_2020)
 
+	
+	@api.multi
+	def button_open_wizard_method(self):
+		return {
+		'type': 'ir.actions.act_window',
+		'name': 'wizarddd',
+		'res_model': 'dedy.yuristiawan.wizard',
+		'view_type': 'form',
+		'view_mode': 'form',
+		'target' : 'new',
+		}
+
