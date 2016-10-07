@@ -4,6 +4,7 @@ from openerp import models, fields, api
 from openerp.exceptions import ValidationError
 from openerp.exceptions import Warning
 from datetime import datetime as dt
+from dateutil import relativedelta as rd
 
 class expense_form_extension(models.Model):
 
@@ -82,49 +83,26 @@ class loan_management(models.Model):
 	_inherit = 'hr.expense.expense'
 
 	loan             = fields.Boolean()
-	loan_start_date  = fields.Date('Start Date', required=True)
-	loan_end_date    = fields.Date('End Date', required=True)
+	loan_start_date  = fields.Date('Start Date')
+	loan_end_date    = fields.Date('End Date')
 	installments     = fields.Integer(string="No of Installment")
-	loan_paid        = fields.Float(string="Loan Paid" ,compute="_compute_amount_paid")
-	loan_remaining   = fields.Float(string="Loan Remaining" ,compute="_compute_amount_paid")
+	loan_paid        = fields.Float(string="Loan Paid")
+	loan_remaining   = fields.Float(string="Loan Remaining")
 	amount_per_month = fields.Float(string="Amount per Month")
-	pringle          = fields.One2many('loan.1122','cringle')
-
-	@api.multi
-	def _compute_amount_paid(self):
-		self.loan_paid = sum(line.amount for line in self.pringle)
-		self.loan_remaining = self.advance - self.loan_paid
-
-
-	@api.onchange('installments')
-	def _onchange_amount_per_month(self):
-		if self.loan != False and self.installments != 0:
-			self.amount_per_month= self.advance / self.installments
-		elif self.loan != False and self.installments == 0:
-			self.amount_per_month= self.advance * 0
-		return
-
-
-	# @api.onchange('loan_paid')
-	# # @api.depends('advance','loan_paid','loan')
-	# def _onchange_amount(self):
-	# 	print "xxxxxxxxxxxxx"
-		# if self.loan != False:
-		# 	self.loan_remaining= self.advance - self.loan_paid
-		# return
+	pringle          = fields.One2many('loan.1122','cringle')		
 
 	@api.multi
 	def show_btn(self):
 		self.pringle.unlink()
 		nn = str(self.employee_id.name)
 		active_class =self.env['hr.payslip.line'].search([('employee_id','=',nn)])
+		start_date_1  = dt.strptime(self.loan_start_date[2:], "%y-%m-%d")
+		end_date_1   = dt.strptime(self.loan_end_date[2:], "%y-%m-%d")
 		for x in active_class:
 			start_date = str(x.slip_id.date_from)
 			end_date = str(x.slip_id.date_to)
 			start_date = dt.strptime(start_date[2:], "%y-%m-%d")
 			end_date   = dt.strptime(end_date[2:], "%y-%m-%d")
-			start_date_1  = dt.strptime(self.loan_start_date[2:], "%y-%m-%d")
-			end_date_1   = dt.strptime(self.loan_end_date[2:], "%y-%m-%d")
 			if x.code == 'loan_ded' and start_date >= start_date_1 and end_date_1>=end_date:
 				for y in self:
 					y.pringle.create({
@@ -134,7 +112,18 @@ class loan_management(models.Model):
 						'amount'   : x.amount,
 						'cringle'  : y.id
 						})
-
+		# ---------------------------------------------------------
+		r = rd.relativedelta(end_date_1, start_date_1)
+		self.installments = r.months
+		# ---------------------------------------------------------
+		if self.loan != False and self.installments != 0:
+			self.amount_per_month= self.advance / self.installments
+		elif self.loan != False and self.installments == 0:
+			self.amount_per_month= self.advance * 0
+		# ---------------------------------------------------------
+		self.loan_paid = sum(line.amount for line in self.pringle)
+		self.loan_remaining = self.advance - self.loan_paid
+		
 class loan_management_1122(models.Model):
 	_name = 'loan.1122'
 	name = fields.Char()

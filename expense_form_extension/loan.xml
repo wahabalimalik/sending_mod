@@ -16,8 +16,8 @@
                         <page string="Loan Managment" attrs="{'invisible':[('loan', '==', False)]}">
                             <!-- Workbook-"Assets"-START -->
                                 <group name="loan_terms" string="Loan Terms">
-                                    <field name="loan_start_date"/>
-                                    <field name="loan_end_date"/>
+                                    <field name="loan_start_date" attrs="{'required': [('loan', '=', True)]}"/>
+                                    <field name="loan_end_date" attrs="{'required': [('loan', '=', True)]}"/>
                                     <field name="installments"/>
                                     <field name="amount_per_month"/>
                                     <field name="loan_paid"/>
