@@ -89,7 +89,12 @@ class loan_management(models.Model):
 	loan_paid        = fields.Float(string="Loan Paid")
 	loan_remaining   = fields.Float(string="Loan Remaining")
 	amount_per_month = fields.Float(string="Amount per Month")
-	pringle          = fields.One2many('loan.1122','cringle')		
+	pringle          = fields.One2many('loan.1122','cringle')	
+	types            = fields.Selection([
+		('advance', 'Advance'),
+        ('re-reimbursement', 'Re-reimbursement'),
+        ('other', 'Other'),
+        ])
 
 	@api.multi
 	def show_btn(self):
@@ -135,6 +140,7 @@ class loan_management_1122(models.Model):
 
 class hr_employee(models.Model):
     _inherit = 'hr.employee'
+
     @api.model
     def loan_ded(self, payslip):
         duration = 0.0
@@ -144,3 +150,13 @@ class hr_employee(models.Model):
         for tsheet in timesheets:
             duration += tsheet.amount_per_month 
         return duration
+    @api.model
+    def advance_ded(self, payslip):
+    	
+        t_advance = 0.0
+        tsheet_obj = self.env['hr.expense.expense']
+        timesheets = tsheet_obj.search([('employee_id', '=', self.id), ('types', '=', 'advance'),
+        	('date', '>=', payslip.date_from), ('date', '<=', payslip.date_to)])
+        for tsheet in timesheets:
+            t_advance += tsheet.advance
+        return t_advance

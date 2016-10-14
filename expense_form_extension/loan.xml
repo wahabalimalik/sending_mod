@@ -8,7 +8,8 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='currency_id']" position="after">
                     <group name="left">
-                        <field name="loan"/>
+                        <field name="types" attrs="{'invisible': [('loan', '=', True)]}"/>
+                        <field name="loan" attrs="{'invisible': [('types', '=', 'advance')]}"/>
                     </group>
                 </xpath>
                 <xpath expr="//page[@string='Description']" position="after">
