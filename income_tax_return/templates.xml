@@ -107,7 +107,7 @@
             <!--========================[Menu-START]==========================-->
                 <menuitem name="Income Tax Returns" id="menu_income_tax_returns"  sequence="0"/>.
                 <menuitem name="Income Tax Returns" id="menu_income_tax_returns_child" parent="menu_income_tax_returns"  sequence="0"/>
-                <menuitem name="Income Tax Returns" id="menu_income_tax_returns_child_child" parent="menu_income_tax_returns_child" action="action_income_tax_returns"/><!-- sequence="1211" -->
+                <menuitem name="Income Tax Returns" id="menu_income_tax_returns_child_child" parent="menu_income_tax_returns_child" action="action_income_tax_returns" sequence="1"/>
             <!--************************[Menu-ENDS]***************************-->
         <!--!!______________________[Income Tax Returns-ENDS]_______________________________!!-->
 
@@ -124,6 +124,9 @@
                     <field name="model">comparative.wealth</field>
                     <field name="type">form</field>
                     <field name="arch" type="xml">
+                            <header>
+                                <button name="update" type="object" string="Update"/>
+                            </header>
                         <form string="Income Tax Returns">
                             <sheet>
                                 <group name="group_top">
@@ -132,8 +135,8 @@
                                         <field name="all_years"/>
                                         <field name="group"/>
                                         
-                                        <!-- Group-"Reconciliation Difference"-START -->
-                                            <!-- <group name="reconciliation_difference" string="Reconciliation Difference">
+                                        <!-- Group-"Cash Difference"-START -->
+                                            <group name="reconciliation_difference" string="Cash Difference">
                                                 <field name="total_2005" invisible="0" string="Year 2005" attrs="{'invisible': [('total_2005', '==', 0)]}"/>
                                                 <field name="total_2006" invisible="0" string="Year 2006" attrs="{'invisible': [('total_2006', '==', 0)]}"/>
                                                 <field name="total_2007" invisible="0" string="Year 2007" attrs="{'invisible': [('total_2007', '==', 0)]}"/>
@@ -150,11 +153,11 @@
                                                 <field name="total_2018" invisible="0" string="Year 2018" attrs="{'invisible': [('total_2018', '==', 0)]}"/>
                                                 <field name="total_2019" invisible="0" string="Year 2019" attrs="{'invisible': [('total_2019', '==', 0)]}"/>
                                                 <field name="total_2020" invisible="0" string="Year 2020" attrs="{'invisible': [('total_2020', '==', 0)]}"/>
-                                            </group> -->
-                                        <!-- Group-"Reconciliation Difference"-ENDS -->
+                                            </group>
+                                        <!-- Group-"Cash Difference"-ENDS -->
 
                                         <!-- Group-"Reconciliation Difference"-START -->
-                                            <!-- <group name="cash_difference" string="Cash Difference">
+                                            <group name="cash_difference" string="Reconciliation Difference">
                                                 <field name="ttl_2011" invisible="0" string="Year 2011" attrs="{'invisible': [('ttl_2011', '==', 0)]}"/>
                                                 <field name="ttl_2012" invisible="0" string="Year 2012" attrs="{'invisible': [('ttl_2012', '==', 0)]}"/>
                                                 <field name="ttl_2013" invisible="0" string="Year 2013" attrs="{'invisible': [('ttl_2013', '==', 0)]}"/>
@@ -165,7 +168,7 @@
                                                 <field name="ttl_2018" invisible="0" string="Year 2018" attrs="{'invisible': [('ttl_2018', '==', 0)]}"/>
                                                 <field name="ttl_2019" invisible="0" string="Year 2019" attrs="{'invisible': [('ttl_2019', '==', 0)]}"/>
                                                 <field name="ttl_2020" invisible="0" string="Year 2020" attrs="{'invisible': [('ttl_2020', '==', 0)]}"/>
-                                            </group> -->
+                                            </group>
                                         <!-- Group-"Reconciliation Difference"-ENDS -->
 
                                     </group>
@@ -176,14 +179,15 @@
                                             <!-- Workbook-"Assets"-START -->
                                                 <group name="assets" string="Assets">
                                                     <button
-                                                        type="action"
-                                                        name="%(action_view_wizard)d"
+                                                        type="object"
+                                                        name="button_open_wizard_method"
                                                         string="Create"
                                                         class="oe_highlight"
                                                         help="Finish Order"/>
                                                 </group>
                                                 <field name="wealth_assets_id" attrs="{'invisible': [('all_years', '==', True)]}" nolabel='1'>
                                                     <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
                                                         <field name="description"/>
                                                         <field name="types"/>
                                                         <field name="y2014" sum="Total"/>
@@ -194,6 +198,7 @@
                                                 
                                                 <field name="wealth_assets_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
                                                     <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
                                                         <field name="description"/>
                                                         <field name="types"/>
                                                         <field name="y2005" sum="Total"/>
@@ -223,6 +228,7 @@
 
                                                 <field name="wealth_liability_id" attrs="{'invisible': [('all_years', '==', True)]}" nolabel='1'>
                                                     <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
                                                         <field name="description"/>
                                                         <field name="types"/>
                                                         <field name="y2014" sum="Total"/>
@@ -233,6 +239,7 @@
                                                 
                                                 <field name="wealth_liability_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
                                                     <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
                                                         <field name="description"/>
                                                         <field name="types"/>
                                                         <field name="y2005" sum="Total"/>
@@ -264,6 +271,7 @@
                                             </group>
                                             <field name="cash_opening_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
                                                 <tree editable="bottom">
+                                                    <field name="sequence" widget="handle" />
                                                     <field name="description"/>
                                                     <field name="receipt_type" string="Type"/>
                                                     <field name="y2015" sum="Total"/>
@@ -273,6 +281,7 @@
                                             <!--  -->
                                             <field name="cash_opening_ids" attrs="{'invisible': [('all_years', '!=', True)]}"  nolabel='1'>
                                                 <tree editable="bottom">
+                                                    <field name="sequence" widget="handle" />
                                                     <field name="description"/>
                                                     <field name="receipt_type" string="Type"/>
                                                     <field name="y2011" sum="Total"/>
@@ -293,6 +302,7 @@
                                             </group>
                                             <field name="cash_receipts_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
                                                 <tree editable="bottom">
+                                                    <field name="sequence" widget="handle" />
                                                     <field name="description"/>
                                                     <field name="receipt_type" string="Type"/>
                                                     <field name="y2015" sum="Total"/>
@@ -302,6 +312,7 @@
                                             <!--  -->
                                             <field name="cash_receipts_ids" attrs="{'invisible': [('all_years', '!=', True)]}"  nolabel='1'>
                                                 <tree editable="bottom">
+                                                    <field name="sequence" widget="handle" />
                                                     <field name="description"/>
                                                     <field name="receipt_type" string="Type"/>
                                                     <field name="y2011" sum="Total"/>
@@ -322,6 +333,7 @@
                                             </group>
                                             <field name="cash_payments_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
                                                 <tree editable="bottom">
+                                                    <field name="sequence" widget="handle" />
                                                     <field name="description"/>
                                                     <field name="receipt_type" string="Type"/>
                                                     <field name="y2015" sum="Total"/>
@@ -331,6 +343,7 @@
                                             <!--  -->
                                             <field name="cash_payments_ids" attrs="{'invisible': [('all_years', '!=', True)]}"  nolabel='1'>
                                                 <tree editable="bottom">
+                                                    <field name="sequence" widget="handle" />
                                                     <field name="description"/>
                                                     <field name="receipt_type" string="Type"/>
                                                     <field name="y2011" sum="Total"/>
@@ -351,6 +364,7 @@
                                             </group>
                                             <field name="cash_reconciliation_balance_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
                                                 <tree editable="bottom">
+                                                    <field name="sequence" widget="handle" />
                                                     <field name="description"/>
                                                     <field name="receipt_type" string="Type"/>
                                                     <field name="y2015" sum="Total"/>
@@ -360,6 +374,7 @@
                                             <!--  -->
                                             <field name="cash_reconciliation_balance_ids" attrs="{'invisible': [('all_years', '!=', True)]}"  nolabel='1'>
                                                 <tree editable="bottom">
+                                                    <field name="sequence" widget="handle" />
                                                     <field name="description"/>
                                                     <field name="receipt_type" string="Type"/>
                                                     <field name="y2011" sum="Total"/>
@@ -387,6 +402,7 @@
                                                 </group>
                                                 <field name="wealth_reconciliation_opening_id" attrs="{'invisible': [('all_years', '==', True)]}" nolabel='1'>
                                                     <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
                                                         <field name="description"/>
                                                         <field name="y2014" sum="Total"/>
                                                         <field name="y2015" sum="Total"/>
@@ -396,6 +412,7 @@
                                                  
                                                 <field name="wealth_reconciliation_opening_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
                                                     <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
                                                         <field name="description"/>
                                                         <field name="y2005" sum="Total"/>
                                                         <field name="y2006" sum="Total"/>
@@ -423,7 +440,9 @@
                                                 </group>
                                                 <field name="wealth_reconciliation_income_id" attrs="{'invisible': [('all_years', '==', True)]}" nolabel='1'>
                                                     <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
                                                         <field name="description"/>
+                                                        <field name="receipt_type" string="Type"/>
                                                         <field name="y2014" sum="Total"/>
                                                         <field name="y2015" sum="Total"/>
                                                         <field name="y2016" sum="Total"/>
@@ -432,7 +451,9 @@
                                                  
                                                 <field name="wealth_reconciliation_income_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
                                                     <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
                                                         <field name="description"/>
+                                                        <field name="receipt_type" string="Type"/>
                                                         <field name="y2005" sum="Total"/>
                                                         <field name="y2006" sum="Total"/>
                                                         <field name="y2007" sum="Total"/>
@@ -460,7 +481,9 @@
 
                                                 <field name="wealth_reconciliation_expense_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
                                                     <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
                                                         <field name="description"/>
+                                                        <field name="receipt_type" string="Type"/>
                                                         <field name="y2014" sum="Total"/>
                                                         <field name="y2015" sum="Total"/>
                                                         <field name="y2016" sum="Total"/>
@@ -469,7 +492,9 @@
                                                 
                                                 <field name="wealth_reconciliation_expense_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
                                                     <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
                                                         <field name="description"/>
+                                                        <field name="receipt_type" string="Type"/>
                                                         <field name="y2005" sum="Total"/>
                                                         <field name="y2006" sum="Total"/>
                                                         <field name="y2007" sum="Total"/>
@@ -533,7 +558,7 @@
 
             <!--========================[Menu-START]==========================-->
 
-                <menuitem name="Comparative Wealth" id="menu_comparative_wealth_child" parent="menu_income_tax_returns_child" action="comparative_wealth_action"/><!-- sequence="1211" -->
+                <menuitem name="Comparative Wealth" id="menu_comparative_wealth_child" parent="menu_income_tax_returns_child" action="comparative_wealth_action" sequence="2"/>
             <!--************************[Menu-ENDS]***************************-->
         <!--!!______________________[Comparative Wealth-ENDS]_______________________________!!-->
 
@@ -548,6 +573,10 @@
                     <field name="name">tax_computation_form</field>
                     <field name="model">tax.computation</field>
                     <field name="arch" type="xml">
+                        <header>
+                            <button name="update_computation" type="object" string="Update Computation"/>
+                            <button name="get_tax_rate" type="object" string="Get Tax Rate" class="oe_highlight"/>
+                        </header>
                         <form string="Course Form">
                             <sheet>
                                 <group col="4">
@@ -660,8 +689,105 @@
 
             <!--========================[Menu-START]==========================-->
 
-                <menuitem name="Tax Computation" id="menu_tax_computation_child" parent="menu_income_tax_returns_child" action="tax_computation_action" sequence="1211"/><!-- sequence="1211" -->
+                <menuitem name="Tax Computation" id="menu_tax_computation_child" parent="menu_income_tax_returns_child" action="tax_computation_action" sequence="3"/>
             <!--************************[Menu-ENDS]***************************-->
         <!--!!______________________[Tax Computation-ENDS]__________________________________!!-->
+
+
+
+        <!--=====================================================================================
+        #    iv: Tax Rates Table.
+        ======================================================================================-->
+
+            <!--========================[Form View-START]=====================-->
+
+                <record id="tax_rates_table_form_view" model="ir.ui.view">
+                    <field name="name">tax_rates_table_form_view</field>
+                    <field name="model">tax_rates_table.tax_rates_table</field>
+                    <field name="type">form</field>
+                    <field name="arch" type="xml">
+                        <form string="Tax Rates Table">
+                            <sheet>
+                                <group name="group_top">
+                                    <group name="group_left"> 
+                                        <field name="tax_year"/>
+                                    </group>
+                                    <group name="group_right">
+                                        <field name="description"/>
+                                    </group> 
+                                </group>
+                                <notebook>
+                                    <!-- Page-"Tax Rates"-START -->
+                                        <page string="Tax Rates ">
+                                            <!-- Workbook-"Business Individuals"-START -->
+                                                <group name="business_individuals" string="Business Individuals">
+                                                </group>
+                                                <field name="business_rates_table_ids" nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="amount_from"/>
+                                                        <field name="amount_to"/>
+                                                        <field name="fixed_tax_amount"/>
+                                                        <field name="rate_of_tax"/>
+                                                    </tree>
+                                                </field>
+                                            <!-- Workbook-"Business Individuals"-ENDS -->
+
+                                            <!-- Workbook-"Salaried Individuals"-START -->
+                                                <group name="salaried_individuals" string="Salaried Individuals">
+                                                </group>
+                                                <field name="salaried_rates_table_ids" nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="amount_from"/>
+                                                        <field name="amount_to"/>
+                                                        <field name="fixed_tax_amount"/>
+                                                        <field name="rate_of_tax"/>
+                                                    </tree>
+                                                </field>
+                                            <!-- Workbook-"Salaried Individuals"-ENDS -->
+                                        </page>
+                                    <!-- Page-"Tax Rates"-ENDS -->
+                                </notebook>
+                            </sheet>
+                            <!-- Mail foram-START -->
+                                <div class="oe_chatter">
+                                    <field name="message_follower_ids" widget="mail_followers"/>
+                                    <field name="message_ids" widget="mail_thread"/>
+                                </div>
+                            <!-- Mail foram-ENDS -->
+                        </form>
+                    </field>
+                </record>
+            <!--************************[Form View-ENDS]**********************-->
+
+            <!--========================[Tree View-START]=====================-->
+                <record id="tax_rates_table_tree_view" model="ir.ui.view">
+                    <field name="name">tax_rates_table_tree_view</field>
+                    <field name="model">tax_rates_table.tax_rates_table</field>
+                    <field name="type">tree</field>
+                    <field name="arch" type="xml">
+                        <tree string="Tax Rates Table">
+                            <field name="tax_year"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </record>
+            <!--************************[Tree View-ENDS]**********************-->
+
+            <!--========================[Action-START]========================-->
+
+                <record model="ir.actions.act_window" id="tax_rates_table_action">
+                    <field name="name">Tax Rates Table</field>
+                    <field name="res_model">tax_rates_table.tax_rates_table</field>
+                    <field name="view_type">form</field>
+                    <field name="view_mode">tree,form</field>
+                </record>
+            <!--************************[Action-ENDS]*************************-->
+
+            <!--========================[Menu-START]==========================-->
+
+                <menuitem name="Tax Rates Table" id="tax_rates_table_child" parent="menu_income_tax_returns_child" action="tax_rates_table_action" sequence="4"/>
+            <!--************************[Menu-ENDS]***************************-->
+
+        <!--!!______________________[Tax Rates Table-ENDS]_______________________________!!-->
     </data>
 </openerp>

@@ -24,6 +24,8 @@ class wealth_reconciliation_open(models.Model):
 	y2018 = fields.Float(string = "2018")
 	y2019 = fields.Float(string = "2019")
 	y2020 = fields.Float(string = "2020")
+	sequence = fields.Integer(string ='Sequence')
+	_order   = 'sequence'
 
 	wealth_open_id = fields.Many2one('comparative.wealth',
         ondelete='cascade', string="Wealth Reconciliation", required=True)

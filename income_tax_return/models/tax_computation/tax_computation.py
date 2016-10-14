@@ -36,9 +36,9 @@ class tax_computation(models.Model):
 	tax_computation_ntr_id        = fields.One2many('income.under.ntr', 'income_under_ntr_id')
 	tax_computation_deductible_id = fields.One2many('deductible.allowance', 'deductible_allowance_id')
 	tax_credits_id                = fields.One2many('tax.credits', 'tax_credits_id')
+	tax_rebate_id                 = fields.One2many('income.rebate', 'income_rebate_id')
 	tax_computation_ftr_id        = fields.One2many('income.under.ftr', 'income_under_ftr_id')
 	tax_deduct_link_id            = fields.One2many('tax.deduct', 'tax_deduct_id')
-	tax_rebate_id                 = fields.One2many('income.rebate', 'income_rebate_id')
 
 	@api.onchange('tax_computation_ntr_id')
 	def _onchange_ntr_id(self):
@@ -75,3 +75,80 @@ class tax_computation(models.Model):
 		self.total_tax      = self.payable_tax - self.tax_adjust
 		self.total_tax      = self.total_tax - self.tax_deduct_min
 		self.tax_ratio      = self.total_tax - self.refund_adjust
+
+	@api.multi
+	def update_computation(self):
+		self.tax_computation_ntr_id.unlink()
+		self.tax_computation_ftr_id.unlink()
+		self.tax_deduct_link_id.unlink()
+		required_class = self.env['comparative.wealth'].search([('name','=',self.client_name.id)])
+
+		for y in self:
+			for x in required_class.wealth_reconciliation_income_ids:
+				dic = {
+				x.y2005 : '2005',
+				x.y2006 : '2006',
+				x.y2007 : '2007',
+				x.y2008 : '2008',
+				x.y2009 : '2009',
+				x.y2010 : '2010',
+				x.y2011 : '2011',
+				x.y2012 : '2012',
+				x.y2013 : '2013',
+				x.y2014 : '2014',
+				x.y2015 : '2015',
+				x.y2016 : '2016',
+				x.y2017 : '2017',
+				x.y2018 : '2018',
+				x.y2019 : '2019',
+				x.y2020 : '2020',
+				}
+				for key, value in dic.iteritems():
+					if x.receipt_type != 'ftr' and dic[key] == self.tax_year.code:
+						y.tax_computation_ntr_id.create({
+							'description' : x.description,
+							'tax_type':x.receipt_type,
+							'amount':key,
+							'income_under_ntr_id': y.id,
+							})
+					elif x.receipt_type == 'ftr' and dic[key] == self.tax_year.code:
+
+						y.tax_computation_ftr_id.create({
+							'description' : x.description,
+							'amount':key,
+							'income_under_ftr_id': y.id,
+							})
+			for x in required_class.wealth_reconciliation_expense_ids:
+				dic = {
+				x.y2005 : '2005',
+				x.y2006 : '2006',
+				x.y2007 : '2007',
+				x.y2008 : '2008',
+				x.y2009 : '2009',
+				x.y2010 : '2010',
+				x.y2011 : '2011',
+				x.y2012 : '2012',
+				x.y2013 : '2013',
+				x.y2014 : '2014',
+				x.y2015 : '2015',
+				x.y2016 : '2016',
+				x.y2017 : '2017',
+				x.y2018 : '2018',
+				x.y2019 : '2019',
+				x.y2020 : '2020',
+				}
+				for key, value in dic.iteritems():
+					if x.receipt_type != 'expense' and dic[key] == self.tax_year.code:
+						y.tax_deduct_link_id.create({
+							'description' : x.description,
+							'tax_type':x.receipt_type,
+							'amount':key,
+							'tax_deduct_id': y.id,
+							})
+	@api.multi
+	def get_tax_rate(self):
+		required_class = self.env['tax_rates_table.tax_rates_table'].search([('tax_year','=',self.tax_year.id)])
+		tax_rate_book = required_class.business_rates_table_ids
+		for x in tax_rate_book:
+			if x.amount_from <= self.taxable_income <= x.amount_to:
+				self.tax_rate = x.rate_of_tax

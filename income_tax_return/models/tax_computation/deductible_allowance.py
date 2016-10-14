@@ -8,7 +8,7 @@ from openerp import models, fields, api
 class deductible_allowance(models.Model):
 	_name = 'deductible.allowance'
 
-	description = fields.Text()
+	description = fields.Char()
 	amount      = fields.Float()
 	rate        = fields.Float()
 	tax         = fields.Float()

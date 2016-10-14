@@ -8,7 +8,7 @@ from openerp import models, fields, api
 class income_under_ftr(models.Model):
 	_name = 'income.under.ftr'
 
-	description = fields.Text()
+	description = fields.Char()
 	amount      = fields.Float()
 	rate        = fields.Float()
 	tax         = fields.Float()
