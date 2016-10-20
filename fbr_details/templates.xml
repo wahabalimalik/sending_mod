@@ -1,0 +1,30 @@
+<openerp>
+    <data>
+        <record id="fbr_details_form_view" model="ir.ui.view">
+            <field name="name">fbr_details_form_view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Accounting']" position="after">
+                     <page string="FBR Registration Details">
+                        <group>
+                            <group>
+                                <field name="user_id"/>
+                                <field name="password"/>
+                                <field name="pin"/>
+                                <field name="cell_no"/>
+                            </group>
+                            <group>
+                                <field name="email"/>
+                                <field name="registered_address"/>
+                                <field name="address_1"/>
+                                <field name="address_2"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
