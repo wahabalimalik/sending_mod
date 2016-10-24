@@ -30,6 +30,7 @@ class payments(models.Model):
 	receipt_type = fields.Selection([
             ('expense', 'Expense'),
             ('asset', 'Asset'),
+            ('loan_repayment', 'Loan Repayment'),
             ])
 
 	payments_id = fields.Many2one('comparative.wealth',

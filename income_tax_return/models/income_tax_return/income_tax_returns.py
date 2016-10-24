@@ -8,21 +8,24 @@ from openerp import models, fields, api
 
 from openerp import models, fields, api
 class income_tax_returns(models.Model):
-	_name    = 'income.tax.returns'
-	_inherit = ['mail.thread', 'ir.needaction_mixin']
-	state    = fields.Selection([
+	_name     = 'income.tax.returns'
+	_inherit  = ['mail.thread', 'ir.needaction_mixin']
+	_rec_name = 'custom_seq'
+	state     = fields.Selection([
 		('draft', 'Draft'),
         ('prepared', 'Prepared'),
         ('submitted', 'Submitted'),
         ],default='draft')
 	name           = fields.Char(string="Name")
+	custom_seq     = fields.Char(string="Custom Sequence")
 	group          = fields.Many2one('res.partner')
 	client_name    = fields.Many2one('res.partner','Client Name', required=True)
-	tax_year       = fields.Many2one('account.fiscalyear', 'Tax Year')
+	tax_year       = fields.Many2one('account.fiscalyear', 'Tax Year', required=True)
 	description    = fields.Text('Description')
 	period         = fields.Char('Period')
 	unit_price     = fields.Float('Unit Price', required=True)
 	prepared_by    = fields.Many2one('hr.employee', 'Prepared by')
+	tax_computation= fields.Many2one('tax.computation', string = 'Tax Computation')
 	comparative_id = fields.Many2one('comparative.wealth', string = 'Comparative Wealth')
 	_defaults      = { 'name': lambda self,cr,uid,context={}: self.pool.get('ir.sequence').get(cr, uid, 'income.tax.returns'), }
 
@@ -52,3 +55,15 @@ class income_tax_returns(models.Model):
 	@api.multi
 	def btn_draft_to_prepared(self):
 		return self.write({'state' : 'prepared'})
+
+	@api.onchange('tax_year')
+	def _get_comparative(self):
+		required_class = self.env['comparative.wealth'].search([('name.id','=',self.client_name.id)])
+		self.comparative_id = required_class.id
+
+		required_computation = self.env['tax.computation'].search([('client_name.id','=',self.client_name.id),('tax_year.id','=',self.tax_year.id)])
+		self.tax_computation = required_computation.id
+
+		client_name_seq = str(self.client_name.name)
+		tax_year_seq    = str(self.tax_year.code)
+		self.custom_seq = client_name_seq + " / " + tax_year_seq

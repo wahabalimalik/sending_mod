@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 ############################################################################
-###########  Fields for WorkBook "Wealth Reconciliation Expense" ##########
+###########  Fields for WorkBook "Closing One" ##########
 ############################################################################
 
 from openerp import models, fields, api
 
-class wealth_reconciliation_expense(models.Model):
-	_name = 'wealth.reconciliation.expense'
+class closing_1(models.Model):
+	_name = 'closing_1.closing_1'
 	description = fields.Char(string = "Description", required=True)
 	y2005 = fields.Float(string = "2005")
 	y2006 = fields.Float(string = "2006")
@@ -25,16 +25,9 @@ class wealth_reconciliation_expense(models.Model):
 	y2019 = fields.Float(string = "2019")
 	y2020 = fields.Float(string = "2020")
 	
-	receipt_type    = fields.Selection([
-        ('adjustable', 'Adjustable'),
-        ('non_adjustable', 'Non Adjustable'),
-        ('expense', 'Expense'),
-        ('minimum', 'Minimum'),
-		('tax_ftr', 'Tax FTR'),
-		('deductible_allowance', 'Deductible Allowance')
-        ])
+
 	sequence = fields.Integer(string ='Sequence')
 	_order   = 'sequence'
 
-	wealth_expense_id = fields.Many2one('comparative.wealth',
+	closing_1_id = fields.Many2one('comparative.wealth',
         ondelete='cascade', string="Wealth Reconciliation", required=True)

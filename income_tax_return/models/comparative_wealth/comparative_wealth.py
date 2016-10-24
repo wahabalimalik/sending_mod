@@ -32,6 +32,10 @@ class comparative_wealth(models.Model):
 	cash_payments_ids                 = fields.One2many('payments', 'payments_id')
 	cash_reconciliation_balance_id    = fields.One2many('reconciliation.balance', 'reconciliation_balance_id')
 	cash_reconciliation_balance_ids   = fields.One2many('reconciliation.balance', 'reconciliation_balance_id')
+	cash_closing_1_id                 = fields.One2many('closing_1.closing_1', 'closing_1_id')
+	cash_closing_1_ids                = fields.One2many('closing_1.closing_1', 'closing_1_id')
+	cash_closing_2_id                 = fields.One2many('closing_2.closing_2', 'closing_2_id')
+	cash_closing_2_ids                = fields.One2many('closing_2.closing_2', 'closing_2_id')
 
 
 	ttl_2011 = fields.Float(string="Total_2011 : " , compute="_compute_reconciliation_difference")
@@ -250,7 +254,10 @@ class comparative_wealth(models.Model):
 		self.wealth_liability_ids.unlink()
 		self.wealth_reconciliation_expense_ids.unlink()
 		self.wealth_assets_ids.unlink()
+		self.cash_closing_1_ids.unlink()
+		self.cash_closing_2_ids.unlink()
 		for y in self:
+
 			for x in self.cash_receipts_ids.search([('receipt_type','=','income')]):
 
 				y.wealth_reconciliation_income_ids.create({
@@ -273,6 +280,7 @@ class comparative_wealth(models.Model):
 					'y2020' : x.y2020,
 					'wealth_income_id' : y.id
 					})
+
 			for x in self.cash_receipts_ids.search([('receipt_type','=','liability')]):
 
 				y.wealth_liability_ids.create({
@@ -295,6 +303,7 @@ class comparative_wealth(models.Model):
 					'y2020' : x.y2020,
 					'liability_id' : y.id
 					})
+
 			for x in self.cash_payments_ids.search([('receipt_type','=','expense')]):
 
 				y.wealth_reconciliation_expense_ids.create({
@@ -317,6 +326,7 @@ class comparative_wealth(models.Model):
 					'y2020' : x.y2020,
 					'wealth_expense_id' : y.id
 					})
+
 			for x in self.cash_payments_ids.search([('receipt_type','=','asset')]):
 
 				y.wealth_assets_ids.create({
@@ -339,6 +349,69 @@ class comparative_wealth(models.Model):
 					'y2020' : x.y2020,
 					'assets_id' : y.id
 					})
+
+			for x in self.cash_payments_ids.search([('receipt_type','=','loan_repayment')]):
+
+				if y.wealth_liability_ids.description == x.description:
+					
+					y.wealth_liability_ids.y2005 = y.wealth_liability_ids.y2005 - x.y2005
+					y.wealth_liability_ids.y2006 = y.wealth_liability_ids.y2006 - x.y2006
+					y.wealth_liability_ids.y2007 = y.wealth_liability_ids.y2007 - x.y2007
+					y.wealth_liability_ids.y2008 = y.wealth_liability_ids.y2008 - x.y2008
+					y.wealth_liability_ids.y2009 = y.wealth_liability_ids.y2009 - x.y2009
+					y.wealth_liability_ids.y2010 = y.wealth_liability_ids.y2010 - x.y2010
+					y.wealth_liability_ids.y2011 = y.wealth_liability_ids.y2011 - x.y2011
+					y.wealth_liability_ids.y2012 = y.wealth_liability_ids.y2012 - x.y2012
+					y.wealth_liability_ids.y2013 = y.wealth_liability_ids.y2013 - x.y2013
+					y.wealth_liability_ids.y2014 = y.wealth_liability_ids.y2014 - x.y2014
+					y.wealth_liability_ids.y2015 = y.wealth_liability_ids.y2015 - x.y2015
+					y.wealth_liability_ids.y2016 = y.wealth_liability_ids.y2016 - x.y2016
+					y.wealth_liability_ids.y2017 = y.wealth_liability_ids.y2017 - x.y2017
+					y.wealth_liability_ids.y2018 = y.wealth_liability_ids.y2018 - x.y2018
+					y.wealth_liability_ids.y2019 = y.wealth_liability_ids.y2019 - x.y2019
+					y.wealth_liability_ids.y2020 = y.wealth_liability_ids.y2020 - x.y2020
+
+			y.cash_closing_1_ids.create({
+				'description' : 'Closing',
+				'y2005' : sum(x.y2005 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2005 for z in self.wealth_reconciliation_income_ids) - sum(c.y2005 for c in self.wealth_reconciliation_expense_ids),
+				'y2006' : sum(x.y2006 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2006 for z in self.wealth_reconciliation_income_ids) - sum(c.y2006 for c in self.wealth_reconciliation_expense_ids),
+				'y2007' : sum(x.y2007 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2007 for z in self.wealth_reconciliation_income_ids) - sum(c.y2007 for c in self.wealth_reconciliation_expense_ids),
+				'y2008' : sum(x.y2008 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2008 for z in self.wealth_reconciliation_income_ids) - sum(c.y2008 for c in self.wealth_reconciliation_expense_ids),
+				'y2009' : sum(x.y2009 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2009 for z in self.wealth_reconciliation_income_ids) - sum(c.y2009 for c in self.wealth_reconciliation_expense_ids),
+				'y2010' : sum(x.y2010 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2010 for z in self.wealth_reconciliation_income_ids) - sum(c.y2010 for c in self.wealth_reconciliation_expense_ids),
+				'y2011' : sum(x.y2011 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2011 for z in self.wealth_reconciliation_income_ids) - sum(c.y2011 for c in self.wealth_reconciliation_expense_ids),
+				'y2012' : sum(x.y2012 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2012 for z in self.wealth_reconciliation_income_ids) - sum(c.y2012 for c in self.wealth_reconciliation_expense_ids),
+				'y2013' : sum(x.y2013 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2013 for z in self.wealth_reconciliation_income_ids) - sum(c.y2013 for c in self.wealth_reconciliation_expense_ids),
+				'y2014' : sum(x.y2014 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2014 for z in self.wealth_reconciliation_income_ids) - sum(c.y2014 for c in self.wealth_reconciliation_expense_ids),
+				'y2015' : sum(x.y2015 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2015 for z in self.wealth_reconciliation_income_ids) - sum(c.y2015 for c in self.wealth_reconciliation_expense_ids),
+				'y2016' : sum(x.y2016 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2016 for z in self.wealth_reconciliation_income_ids) - sum(c.y2016 for c in self.wealth_reconciliation_expense_ids),
+				'y2017' : sum(x.y2017 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2017 for z in self.wealth_reconciliation_income_ids) - sum(c.y2017 for c in self.wealth_reconciliation_expense_ids),
+				'y2018' : sum(x.y2018 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2018 for z in self.wealth_reconciliation_income_ids) - sum(c.y2018 for c in self.wealth_reconciliation_expense_ids),
+				'y2019' : sum(x.y2019 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2019 for z in self.wealth_reconciliation_income_ids) - sum(c.y2019 for c in self.wealth_reconciliation_expense_ids),
+				'y2020' : sum(x.y2020 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2020 for z in self.wealth_reconciliation_income_ids) - sum(c.y2020 for c in self.wealth_reconciliation_expense_ids),
+				'closing_1_id' : y.id
+				})
+
+			y.cash_closing_2_ids.create({
+				'description' : 'Closing',
+				'y2005' : sum(x.y2005 for x in self.wealth_assets_ids) - sum(z.y2005 for z in self.wealth_liability_ids),
+				'y2006' : sum(x.y2006 for x in self.wealth_assets_ids) - sum(z.y2006 for z in self.wealth_liability_ids),
+				'y2007' : sum(x.y2007 for x in self.wealth_assets_ids) - sum(z.y2007 for z in self.wealth_liability_ids),
+				'y2008' : sum(x.y2008 for x in self.wealth_assets_ids) - sum(z.y2008 for z in self.wealth_liability_ids),
+				'y2009' : sum(x.y2009 for x in self.wealth_assets_ids) - sum(z.y2009 for z in self.wealth_liability_ids),
+				'y2010' : sum(x.y2010 for x in self.wealth_assets_ids) - sum(z.y2010 for z in self.wealth_liability_ids),
+				'y2011' : sum(x.y2011 for x in self.wealth_assets_ids) - sum(z.y2011 for z in self.wealth_liability_ids),
+				'y2012' : sum(x.y2012 for x in self.wealth_assets_ids) - sum(z.y2012 for z in self.wealth_liability_ids),
+				'y2013' : sum(x.y2013 for x in self.wealth_assets_ids) - sum(z.y2013 for z in self.wealth_liability_ids),
+				'y2014' : sum(x.y2014 for x in self.wealth_assets_ids) - sum(z.y2014 for z in self.wealth_liability_ids),
+				'y2015' : sum(x.y2015 for x in self.wealth_assets_ids) - sum(z.y2015 for z in self.wealth_liability_ids),
+				'y2016' : sum(x.y2016 for x in self.wealth_assets_ids) - sum(z.y2016 for z in self.wealth_liability_ids),
+				'y2017' : sum(x.y2017 for x in self.wealth_assets_ids) - sum(z.y2017 for z in self.wealth_liability_ids),
+				'y2018' : sum(x.y2018 for x in self.wealth_assets_ids) - sum(z.y2018 for z in self.wealth_liability_ids),
+				'y2019' : sum(x.y2019 for x in self.wealth_assets_ids) - sum(z.y2019 for z in self.wealth_liability_ids),
+				'y2020' : sum(x.y2020 for x in self.wealth_assets_ids) - sum(z.y2020 for z in self.wealth_liability_ids),
+				'closing_2_id' : y.id
+				})
 
 	@api.multi
 	def button_open_wizard_method(self):

@@ -35,6 +35,8 @@
                                         <field name="unit_price"/>
                                         <field name="prepared_by"/>
                                         <field name="comparative_id"/>
+                                        <field name="tax_computation"/>
+                                        <field name="custom_seq" invisible = "1"/>
                                     </group>
                                 </group>
                                 <notebook colspan="5">
@@ -174,228 +176,140 @@
                                     </group>
                                 </group>
                                 <notebook>
-                                    <!-- Page-"Wealth Statement"-START -->
-                                        <page string="Wealth Statement">
-                                            <!-- Workbook-"Assets"-START -->
-                                                <group name="assets" string="Assets">
-                                                    <button
-                                                        type="object"
-                                                        name="button_open_wizard_method"
-                                                        string="Create"
-                                                        class="oe_highlight"
-                                                        help="Finish Order"/>
-                                                </group>
-                                                <field name="wealth_assets_id" attrs="{'invisible': [('all_years', '==', True)]}" nolabel='1'>
-                                                    <tree editable="bottom">
-                                                        <field name="sequence" widget="handle" />
-                                                        <field name="description"/>
-                                                        <field name="types"/>
-                                                        <field name="y2014" sum="Total"/>
-                                                        <field name="y2015" sum="Total"/>
-                                                        <field name="y2016" sum="Total"/>
-                                                    </tree>
-                                                </field>
-                                                
-                                                <field name="wealth_assets_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
-                                                    <tree editable="bottom">
-                                                        <field name="sequence" widget="handle" />
-                                                        <field name="description"/>
-                                                        <field name="types"/>
-                                                        <field name="y2005" sum="Total"/>
-                                                        <field name="y2006" sum="Total"/>
-                                                        <field name="y2007" sum="Total"/>
-                                                        <field name="y2008" sum="Total"/>
-                                                        <field name="y2009" sum="Total"/>
-                                                        <field name="y2010" sum="Total"/>
-                                                        <field name="y2011" sum="Total"/>
-                                                        <field name="y2012" sum="Total"/>
-                                                        <field name="y2013" sum="Total"/>
-                                                        <field name="y2014" sum="Total"/>
-                                                        <field name="y2015" sum="Total"/>
-                                                        <field name="y2016" sum="Total"/>
-                                                        <field name="y2017" sum="Total"/>
-                                                        <field name="y2018" sum="Total"/>
-                                                        <field name="y2019" sum="Total"/>
-                                                        <field name="y2020" sum="Total"/>
-
-                                                    </tree>
-                                                </field>
-                                            <!-- Workbook-"Assets"-ENDS -->
-
-                                            <!-- Workbook-"Liability"-START -->
-                                                <group name="liability" string="Liability">
-                                                </group>
-
-                                                <field name="wealth_liability_id" attrs="{'invisible': [('all_years', '==', True)]}" nolabel='1'>
-                                                    <tree editable="bottom">
-                                                        <field name="sequence" widget="handle" />
-                                                        <field name="description"/>
-                                                        <field name="types"/>
-                                                        <field name="y2014" sum="Total"/>
-                                                        <field name="y2015" sum="Total"/>
-                                                        <field name="y2016" sum="Total"/>
-                                                    </tree>
-                                                </field>
-                                                
-                                                <field name="wealth_liability_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
-                                                    <tree editable="bottom">
-                                                        <field name="sequence" widget="handle" />
-                                                        <field name="description"/>
-                                                        <field name="types"/>
-                                                        <field name="y2005" sum="Total"/>
-                                                        <field name="y2006" sum="Total"/>
-                                                        <field name="y2007" sum="Total"/>
-                                                        <field name="y2008" sum="Total"/>
-                                                        <field name="y2009" sum="Total"/>
-                                                        <field name="y2010" sum="Total"/>
-                                                        <field name="y2011" sum="Total"/>
-                                                        <field name="y2012" sum="Total"/>
-                                                        <field name="y2013" sum="Total"/>
-                                                        <field name="y2014" sum="Total"/>
-                                                        <field name="y2015" sum="Total"/>
-                                                        <field name="y2016" sum="Total"/>
-                                                        <field name="y2017" sum="Total"/>
-                                                        <field name="y2018" sum="Total"/>
-                                                        <field name="y2019" sum="Total"/>
-                                                        <field name="y2020" sum="Total"/>
-
-                                                    </tree>
-                                                </field>
-                                            <!-- Workbook-"Liability"-ENDS -->
-                                        </page>
-                                    <!-- Page-"Wealth Statement"-ENDS -->
-
+                                    
                                     <!-- Page-"Cash Reconciliation"-START -->
                                         <page string="Cash Reconciliation">
-                                            <group name="receipts" string="Opening">
-                                            </group>
-                                            <field name="cash_opening_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
-                                                <tree editable="bottom">
-                                                    <field name="sequence" widget="handle" />
-                                                    <field name="description"/>
-                                                    <field name="receipt_type" string="Type"/>
-                                                    <field name="y2015" sum="Total"/>
-                                                    <field name="y2016" sum="Total"/>
-                                                </tree>
-                                            </field>
-                                            <!--  -->
-                                            <field name="cash_opening_ids" attrs="{'invisible': [('all_years', '!=', True)]}"  nolabel='1'>
-                                                <tree editable="bottom">
-                                                    <field name="sequence" widget="handle" />
-                                                    <field name="description"/>
-                                                    <field name="receipt_type" string="Type"/>
-                                                    <field name="y2011" sum="Total"/>
-                                                    <field name="y2012" sum="Total"/>
-                                                    <field name="y2013" sum="Total"/>
-                                                    <field name="y2014" sum="Total"/>
-                                                    <field name="y2015" sum="Total"/>
-                                                    <field name="y2016" sum="Total"/>
-                                                    <field name="y2017" sum="Total"/>
-                                                    <field name="y2018" sum="Total"/>
-                                                    <field name="y2019" sum="Total"/>
-                                                    <field name="y2020" sum="Total"/>
-                                                </tree>
-                                            </field>
-                                            <!--  -->
-                                            <!--  -->
-                                            <group name="receipts" string="Receipts">
-                                            </group>
-                                            <field name="cash_receipts_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
-                                                <tree editable="bottom">
-                                                    <field name="sequence" widget="handle" />
-                                                    <field name="description"/>
-                                                    <field name="receipt_type" string="Type"/>
-                                                    <field name="y2015" sum="Total"/>
-                                                    <field name="y2016" sum="Total"/>
-                                                </tree>
-                                            </field>
-                                            <!--  -->
-                                            <field name="cash_receipts_ids" attrs="{'invisible': [('all_years', '!=', True)]}"  nolabel='1'>
-                                                <tree editable="bottom">
-                                                    <field name="sequence" widget="handle" />
-                                                    <field name="description"/>
-                                                    <field name="receipt_type" string="Type"/>
-                                                    <field name="y2011" sum="Total"/>
-                                                    <field name="y2012" sum="Total"/>
-                                                    <field name="y2013" sum="Total"/>
-                                                    <field name="y2014" sum="Total"/>
-                                                    <field name="y2015" sum="Total"/>
-                                                    <field name="y2016" sum="Total"/>
-                                                    <field name="y2017" sum="Total"/>
-                                                    <field name="y2018" sum="Total"/>
-                                                    <field name="y2019" sum="Total"/>
-                                                    <field name="y2020" sum="Total"/>
-                                                </tree>
-                                            </field>
-                                            <!--  -->
-                                            <!--  -->
-                                            <group name="receipts" string="Payments">
-                                            </group>
-                                            <field name="cash_payments_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
-                                                <tree editable="bottom">
-                                                    <field name="sequence" widget="handle" />
-                                                    <field name="description"/>
-                                                    <field name="receipt_type" string="Type"/>
-                                                    <field name="y2015" sum="Total"/>
-                                                    <field name="y2016" sum="Total"/>
-                                                </tree>
-                                            </field>
-                                            <!--  -->
-                                            <field name="cash_payments_ids" attrs="{'invisible': [('all_years', '!=', True)]}"  nolabel='1'>
-                                                <tree editable="bottom">
-                                                    <field name="sequence" widget="handle" />
-                                                    <field name="description"/>
-                                                    <field name="receipt_type" string="Type"/>
-                                                    <field name="y2011" sum="Total"/>
-                                                    <field name="y2012" sum="Total"/>
-                                                    <field name="y2013" sum="Total"/>
-                                                    <field name="y2014" sum="Total"/>
-                                                    <field name="y2015" sum="Total"/>
-                                                    <field name="y2016" sum="Total"/>
-                                                    <field name="y2017" sum="Total"/>
-                                                    <field name="y2018" sum="Total"/>
-                                                    <field name="y2019" sum="Total"/>
-                                                    <field name="y2020" sum="Total"/>
-                                                </tree>
-                                            </field>
-                                            <!--  -->
-                                            <!--  -->
-                                            <group name="receipts" string="Reconciliation of Cash and Bank Balance">
-                                            </group>
-                                            <field name="cash_reconciliation_balance_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
-                                                <tree editable="bottom">
-                                                    <field name="sequence" widget="handle" />
-                                                    <field name="description"/>
-                                                    <field name="receipt_type" string="Type"/>
-                                                    <field name="y2015" sum="Total"/>
-                                                    <field name="y2016" sum="Total"/>
-                                                </tree>
-                                            </field>
-                                            <!--  -->
-                                            <field name="cash_reconciliation_balance_ids" attrs="{'invisible': [('all_years', '!=', True)]}"  nolabel='1'>
-                                                <tree editable="bottom">
-                                                    <field name="sequence" widget="handle" />
-                                                    <field name="description"/>
-                                                    <field name="receipt_type" string="Type"/>
-                                                    <field name="y2011" sum="Total"/>
-                                                    <field name="y2012" sum="Total"/>
-                                                    <field name="y2013" sum="Total"/>
-                                                    <field name="y2014" sum="Total"/>
-                                                    <field name="y2015" sum="Total"/>
-                                                    <field name="y2016" sum="Total"/>
-                                                    <field name="y2017" sum="Total"/>
-                                                    <field name="y2018" sum="Total"/>
-                                                    <field name="y2019" sum="Total"/>
-                                                    <field name="y2020" sum="Total"/>
-                                                </tree>
-                                            </field>
-                                            <!--  -->
-                                            <!--  -->
+                                            <!-- "Opening Workbook"-START -->
+                                                <group name="receipts" string="Opening">
+                                                </group>
+                                                <field name="cash_opening_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="description"/>
+                                                        <field name="receipt_type" string="Type"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                                <!--  -->
+                                                <field name="cash_opening_ids" attrs="{'invisible': [('all_years', '!=', True)]}"  nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="description"/>
+                                                        <field name="receipt_type" string="Type"/>
+                                                        <field name="y2011" sum="Total"/>
+                                                        <field name="y2012" sum="Total"/>
+                                                        <field name="y2013" sum="Total"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                        <field name="y2017" sum="Total"/>
+                                                        <field name="y2018" sum="Total"/>
+                                                        <field name="y2019" sum="Total"/>
+                                                        <field name="y2020" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                            <!-- "Opening Workbook"-END -->
+                                            <!-- "Receipts Workbook"-START-->
+                                                <group name="receipts" string="Receipts">
+                                                </group>
+                                                <field name="cash_receipts_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="description"/>
+                                                        <!-- <field name="capital_gain"/> -->
+                                                        <field name="receipt_type" string="Type"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                                <!--  -->
+                                                <field name="cash_receipts_ids" attrs="{'invisible': [('all_years', '!=', True)]}"  nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="description"/>
+                                                        <!-- <field name="capital_gain"/> -->
+                                                        <field name="receipt_type" string="Type"/>
+                                                        <field name="y2011" sum="Total"/>
+                                                        <field name="y2012" sum="Total"/>
+                                                        <field name="y2013" sum="Total"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                        <field name="y2017" sum="Total"/>
+                                                        <field name="y2018" sum="Total"/>
+                                                        <field name="y2019" sum="Total"/>
+                                                        <field name="y2020" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                            <!-- "Receipts Workbook"-END-->
+                                            <!-- "Payments Workbook"-START-->
+                                                <group name="receipts" string="Payments">
+                                                </group>
+                                                <field name="cash_payments_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="description"/>
+                                                        <field name="receipt_type" string="Type"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                                <!--  -->
+                                                <field name="cash_payments_ids" attrs="{'invisible': [('all_years', '!=', True)]}"  nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="description"/>
+                                                        <field name="receipt_type" string="Type"/>
+                                                        <field name="y2011" sum="Total"/>
+                                                        <field name="y2012" sum="Total"/>
+                                                        <field name="y2013" sum="Total"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                        <field name="y2017" sum="Total"/>
+                                                        <field name="y2018" sum="Total"/>
+                                                        <field name="y2019" sum="Total"/>
+                                                        <field name="y2020" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                            <!-- "Payments Workbook"-END-->
+                                            <!-- "Reconciliation of Cash and Bank Balance Workbook"-START-->
+                                                <group name="receipts" string="Reconciliation of Cash and Bank Balance">
+                                                </group>
+                                                <field name="cash_reconciliation_balance_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="description"/>
+                                                        <field name="receipt_type" string="Type"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                                <!--  -->
+                                                <field name="cash_reconciliation_balance_ids" attrs="{'invisible': [('all_years', '!=', True)]}"  nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="description"/>
+                                                        <field name="receipt_type" string="Type"/>
+                                                        <field name="y2011" sum="Total"/>
+                                                        <field name="y2012" sum="Total"/>
+                                                        <field name="y2013" sum="Total"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                        <field name="y2017" sum="Total"/>
+                                                        <field name="y2018" sum="Total"/>
+                                                        <field name="y2019" sum="Total"/>
+                                                        <field name="y2020" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                            <!-- "Reconciliation of Cash and Bank Balance Workbook"-END-->
                                         </page>
                                     <!-- Page-"Cash Reconciliation"-ENDS -->
 
-                                    <!-- Page-"Net Wealth Reconciliation"-START -->
-                                        <page string="Net Wealth Reconciliation">
+                                    <!-- Page-"Wealth Reconciliation"-START -->
+                                        <page string="Wealth Reconciliation">
 
                                             <!-- Workbook-"Opening"-START -->
                                                 <group name="opening" string="Opening">
@@ -514,8 +428,175 @@
                                                     </tree>
                                                 </field>
                                             <!-- Workbook-"Expense"-ENDS -->
+
+                                            <!-- Workbook-"Closing"-START -->
+                                                <group name="closing" string="Closing">
+                                                </group>
+
+                                                <field name="cash_closing_1_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="description"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                                
+                                                <field name="cash_closing_1_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="description"/>
+                                                        <field name="y2005" sum="Total"/>
+                                                        <field name="y2006" sum="Total"/>
+                                                        <field name="y2007" sum="Total"/>
+                                                        <field name="y2008" sum="Total"/>
+                                                        <field name="y2009" sum="Total"/>
+                                                        <field name="y2010" sum="Total"/>
+                                                        <field name="y2011" sum="Total"/>
+                                                        <field name="y2012" sum="Total"/>
+                                                        <field name="y2013" sum="Total"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                        <field name="y2017" sum="Total"/>
+                                                        <field name="y2018" sum="Total"/>
+                                                        <field name="y2019" sum="Total"/>
+                                                        <field name="y2020" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                            <!-- Workbook-"Closing"-ENDS -->
                                         </page>
-                                    <!-- Page-"Net Wealth Reconciliation"-ENDS -->
+                                    <!-- Page-"Wealth Reconciliation"-ENDS -->
+
+                                    <!-- Page-"Wealth Statement"-START -->
+                                        <page string="Wealth Statement">
+                                            <!-- Workbook-"Assets"-START -->
+                                                <group name="assets" string="Assets">
+                                                    <button
+                                                        type="object"
+                                                        name="button_open_wizard_method"
+                                                        string="Create"
+                                                        class="oe_highlight"
+                                                        help="Finish Order"/>
+                                                </group>
+                                                <field name="wealth_assets_id" attrs="{'invisible': [('all_years', '==', True)]}" nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="description"/>
+                                                        <field name="types"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                                
+                                                <field name="wealth_assets_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="description"/>
+                                                        <field name="types"/>
+                                                        <field name="y2005" sum="Total"/>
+                                                        <field name="y2006" sum="Total"/>
+                                                        <field name="y2007" sum="Total"/>
+                                                        <field name="y2008" sum="Total"/>
+                                                        <field name="y2009" sum="Total"/>
+                                                        <field name="y2010" sum="Total"/>
+                                                        <field name="y2011" sum="Total"/>
+                                                        <field name="y2012" sum="Total"/>
+                                                        <field name="y2013" sum="Total"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                        <field name="y2017" sum="Total"/>
+                                                        <field name="y2018" sum="Total"/>
+                                                        <field name="y2019" sum="Total"/>
+                                                        <field name="y2020" sum="Total"/>
+
+                                                    </tree>
+                                                </field>
+                                            <!-- Workbook-"Assets"-ENDS -->
+
+                                            <!-- Workbook-"Liability"-START -->
+                                                <group name="liability" string="Liability">
+                                                </group>
+
+                                                <field name="wealth_liability_id" attrs="{'invisible': [('all_years', '==', True)]}" nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="description"/>
+                                                        <field name="types"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                                
+                                                <field name="wealth_liability_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="description"/>
+                                                        <field name="types"/>
+                                                        <field name="y2005" sum="Total"/>
+                                                        <field name="y2006" sum="Total"/>
+                                                        <field name="y2007" sum="Total"/>
+                                                        <field name="y2008" sum="Total"/>
+                                                        <field name="y2009" sum="Total"/>
+                                                        <field name="y2010" sum="Total"/>
+                                                        <field name="y2011" sum="Total"/>
+                                                        <field name="y2012" sum="Total"/>
+                                                        <field name="y2013" sum="Total"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                        <field name="y2017" sum="Total"/>
+                                                        <field name="y2018" sum="Total"/>
+                                                        <field name="y2019" sum="Total"/>
+                                                        <field name="y2020" sum="Total"/>
+
+                                                    </tree>
+                                                </field>
+                                            <!-- Workbook-"Liability"-ENDS -->
+
+                                            <!-- Workbook-"Closing"-START -->
+                                                <group name="closing" string="Closing">
+                                                </group>
+
+                                                <field name="cash_closing_2_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="description"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                                
+                                                <field name="cash_closing_2_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="description"/>
+                                                        <field name="y2005" sum="Total"/>
+                                                        <field name="y2006" sum="Total"/>
+                                                        <field name="y2007" sum="Total"/>
+                                                        <field name="y2008" sum="Total"/>
+                                                        <field name="y2009" sum="Total"/>
+                                                        <field name="y2010" sum="Total"/>
+                                                        <field name="y2011" sum="Total"/>
+                                                        <field name="y2012" sum="Total"/>
+                                                        <field name="y2013" sum="Total"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                        <field name="y2017" sum="Total"/>
+                                                        <field name="y2018" sum="Total"/>
+                                                        <field name="y2019" sum="Total"/>
+                                                        <field name="y2020" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                            <!-- Workbook-"Closing"-ENDS -->
+                                        </page>
+                                    <!-- Page-"Wealth Statement"-ENDS -->
 
                                 </notebook>
                             </sheet>
@@ -576,6 +657,7 @@
                         <header>
                             <button name="update_computation" type="object" string="Update Computation"/>
                             <button name="get_tax_rate" type="object" string="Get Tax Rate" class="oe_highlight"/>
+                            <button name="virtual_tax_minimum" type="object" string="Minimum Tax" class="oe_highlight"/>
                         </header>
                         <form string="Course Form">
                             <sheet>
@@ -583,7 +665,9 @@
                                     <!-- <group colspan="2" col="2"> -->
                                         <field name="client_name"/>
                                         <field name="tax_year"/>
+                                        <field name="comparative_id"/>
                                         <field name="group"/>
+                                        <field name="custom_seq" invisible = "1"/>
                                     <!-- </group> -->
                                 </group>
                                 <notebook col="4">
@@ -594,6 +678,7 @@
                                                 <field name="deductible_allowance"/>
                                                 <field name="taxable_income"/>
                                                 <field name="tax_rate"/>
+                                                <field name="fixed_tax"/>
                                                 <field name="tax_liability"/>
                                                 <field name="portion_of_minimum_tax"/>
                                                 <field name="payable_tax"/>
@@ -667,6 +752,48 @@
                                                     <field name="description"/>
                                                     <field name="tax_type"/>
                                                     <field name="amount" sum="Total"/>
+                                                </tree>
+                                            </field>
+                                        </page>
+                                        <page string="Profit and Loss">
+                                            <group name="group_left" string="Ratio of Income">
+                                                <group name="left">
+                                                    <field name="total_sale"/>
+                                                    <field name="sale_under_ntr"/>
+                                                    <field name="sale_under_ftr"/>
+                                                </group>
+                                                <group name="right">
+                                                    <button name="update" type="object" string="⇒ Update" class="oe_button oe_form_button oe_link"/>
+                                                </group>
+                                            </group>
+                                            <group>
+                                                <group name="group_left" string="Profit and Loss NTR">
+                                                    <field name="ntr_income"/>
+                                                    <field name="gross_profit"/>
+                                                    <field name="ntr_expense"/>
+                                                    <field name="ntr_profit_Loss"/>
+                                                    <field name="accounting_depreciation"/>
+                                                    <field name="inadmissible_expenses"/>
+                                                    <field name="tax_depreciation"/>
+                                                    <field name="tax_profit"/>
+                                                </group>
+                                                <group name="group_right" string="Cost of Sales">
+                                                    <field name="purchases"/>
+                                                    <field name="opening"/>
+                                                    <field name="closing"/>
+                                                    <field name="cost_of_sales"/>
+                                                </group>
+                                            </group>
+                                            <group name="profit_and_loss" string="Profit and Loss">
+                                            </group>
+                                            <field name="profit_loss_link_id">
+                                                <tree editable="bottom">
+                                                    <field name="description"/>
+                                                    <field name="types" string='Type'/>
+                                                    <field name="admissible"/> 
+                                                    <field name="ntr"/>
+                                                    <field name="ftr_exempt"/>
+                                                    <field name="total"/>
                                                 </tree>
                                             </field>
                                         </page>
@@ -789,5 +916,74 @@
             <!--************************[Menu-ENDS]***************************-->
 
         <!--!!______________________[Tax Rates Table-ENDS]_______________________________!!-->
+
+        <!--=====================================================================================
+        #    v: Capital Gain.
+        ======================================================================================-->
+
+            <!--========================[Form View-START]=====================-->
+
+                <record id="capital_gain_form_view" model="ir.ui.view">
+                    <field name="name">capital_gain_form_view</field>
+                    <field name="model">capital_gain.capital_gain</field>
+                    <field name="type">form</field>
+                    <field name="arch" type="xml">
+                        <form string="Capital Gain">
+                            <sheet>
+                                <group name="group_top">
+                                    <group name="group_left"> 
+                                        <field name="year_purchase"/>
+                                        <field name="sale_value"/>
+                                        <field name="purchase_value"/>
+                                        <field name="capital_gain"/>
+                                    </group>
+                                    <group name="group_right">
+                                        <field name="year_sale"/>
+                                        <field name="description"/>
+                                    </group> 
+                                </group>
+                            </sheet>
+                            <!-- Mail foram-START -->
+                                <div class="oe_chatter">
+                                    <field name="message_follower_ids" widget="mail_followers"/>
+                                    <field name="message_ids" widget="mail_thread"/>
+                                </div>
+                            <!-- Mail foram-ENDS -->
+                        </form>
+                    </field>
+                </record>
+            <!--************************[Form View-ENDS]**********************-->
+
+            <!--========================[Tree View-START]=====================-->
+                <record id="capital_gain_tree_view" model="ir.ui.view">
+                    <field name="name">capital_gain_tree_view</field>
+                    <field name="model">capital_gain.capital_gain</field>
+                    <field name="type">tree</field>
+                    <field name="arch" type="xml">
+                        <tree string="Capital Gain">
+                            <field name="year_purchase"/>
+                            <field name="year_sale"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
+                </record>
+            <!--************************[Tree View-ENDS]**********************-->
+
+            <!--========================[Action-START]========================-->
+
+                <record model="ir.actions.act_window" id="capital_gain_action">
+                    <field name="name">Capital Gain</field>
+                    <field name="res_model">capital_gain.capital_gain</field>
+                    <field name="view_type">form</field>
+                    <field name="view_mode">tree,form</field>
+                </record>
+            <!--************************[Action-ENDS]*************************-->
+
+            <!--========================[Menu-START]==========================-->
+
+                <menuitem name="Capital Gain" id="capital_gain_child" parent="menu_income_tax_returns_child" action="capital_gain_action" sequence="5"/>
+            <!--************************[Menu-ENDS]***************************-->
+
+        <!--!!______________________[Capital Gain-ENDS]_______________________________!!-->
     </data>
 </openerp>
