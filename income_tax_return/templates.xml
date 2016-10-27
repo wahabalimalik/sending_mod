@@ -126,9 +126,9 @@
                     <field name="model">comparative.wealth</field>
                     <field name="type">form</field>
                     <field name="arch" type="xml">
-                            <header>
-                                <button name="update" type="object" string="Update"/>
-                            </header>
+                        <header>
+                            <button name="update" type="object" string="Update"/>
+                        </header>
                         <form string="Income Tax Returns">
                             <sheet>
                                 <group name="group_top">
@@ -217,8 +217,9 @@
                                                     <tree editable="bottom">
                                                         <field name="sequence" widget="handle" />
                                                         <field name="description"/>
-                                                        <!-- <field name="capital_gain"/> -->
                                                         <field name="receipt_type" string="Type"/>
+                                                        <field name="tax_type" string="Tax Type"/>
+                                                        <field name="capital_gain"/>
                                                         <field name="y2015" sum="Total"/>
                                                         <field name="y2016" sum="Total"/>
                                                     </tree>
@@ -228,8 +229,9 @@
                                                     <tree editable="bottom">
                                                         <field name="sequence" widget="handle" />
                                                         <field name="description"/>
-                                                        <!-- <field name="capital_gain"/> -->
                                                         <field name="receipt_type" string="Type"/>
+                                                        <field name="tax_type" string="Tax Type"/>
+                                                        <field name="capital_gain"/>
                                                         <field name="y2011" sum="Total"/>
                                                         <field name="y2012" sum="Total"/>
                                                         <field name="y2013" sum="Total"/>
@@ -245,12 +247,19 @@
                                             <!-- "Receipts Workbook"-END-->
                                             <!-- "Payments Workbook"-START-->
                                                 <group name="receipts" string="Payments">
+                                                    <button
+                                                        type="object"
+                                                        name="upload_assets"
+                                                        string="Upload Assets"
+                                                        class="oe_highlight"
+                                                        help="Push the Assets to Assets field"/>
                                                 </group>
                                                 <field name="cash_payments_id" attrs="{'invisible': [('all_years', '==', True)]}"  nolabel='1'>
                                                     <tree editable="bottom">
                                                         <field name="sequence" widget="handle" />
                                                         <field name="description"/>
                                                         <field name="receipt_type" string="Type"/>
+                                                        <field name="tax_type" string="Tax Type"/>
                                                         <field name="y2015" sum="Total"/>
                                                         <field name="y2016" sum="Total"/>
                                                     </tree>
@@ -261,6 +270,7 @@
                                                         <field name="sequence" widget="handle" />
                                                         <field name="description"/>
                                                         <field name="receipt_type" string="Type"/>
+                                                        <field name="tax_type" string="Tax Type"/>
                                                         <field name="y2011" sum="Total"/>
                                                         <field name="y2012" sum="Total"/>
                                                         <field name="y2013" sum="Total"/>
@@ -484,6 +494,7 @@
                                                     <tree editable="bottom">
                                                         <field name="sequence" widget="handle" />
                                                         <field name="description"/>
+                                                        <field name="opening_assets"/>
                                                         <field name="types"/>
                                                         <field name="y2014" sum="Total"/>
                                                         <field name="y2015" sum="Total"/>
@@ -495,6 +506,7 @@
                                                     <tree editable="bottom">
                                                         <field name="sequence" widget="handle" />
                                                         <field name="description"/>
+                                                        <field name="opening_assets"/>
                                                         <field name="types"/>
                                                         <field name="y2005" sum="Total"/>
                                                         <field name="y2006" sum="Total"/>
@@ -931,13 +943,15 @@
                         <form string="Capital Gain">
                             <sheet>
                                 <group name="group_top">
-                                    <group name="group_left"> 
+                                    <group name="group_left">
+                                        <field name="name"/>
                                         <field name="year_purchase"/>
                                         <field name="sale_value"/>
                                         <field name="purchase_value"/>
                                         <field name="capital_gain"/>
                                     </group>
                                     <group name="group_right">
+                                        <field name="assets"/>
                                         <field name="year_sale"/>
                                         <field name="description"/>
                                     </group> 

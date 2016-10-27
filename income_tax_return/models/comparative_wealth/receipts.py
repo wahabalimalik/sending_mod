@@ -8,10 +8,7 @@ from openerp import models, fields, api
 class receipts(models.Model):
 	_name = 'receipts'
 	description = fields.Char(string = "Description", required=True)
-	# capital_gain= fields.Many2many(
-	# 	'capital_gain.capital_gain',
-	# 	'year_sale',
-	# 	string = 'Capital Gain')
+	capital_gain = fields.Many2one('capital_gain.capital_gain','Capital Gain')
 	y2005 = fields.Float(string = "2005")
 	y2006 = fields.Float(string = "2006")
 	y2007 = fields.Float(string = "2007")
@@ -36,6 +33,11 @@ class receipts(models.Model):
             ('liability', 'Liability'),
             ('capital_gain', 'Capital Gain'),
             ])
+	tax_type = fields.Selection([
+		('taxable', 'Taxable'),
+        ('exempt', 'Exempt'),
+        ('ftr', 'FTR'),
+        ])
 
 	receipts_id = fields.Many2one('comparative.wealth',
-        ondelete='cascade', string="Wealth Reconciliation", required=True)
+        ondelete='cascade', string="Wealth Reconciliation", required=True)	

@@ -4,8 +4,10 @@
 # 
 # ---------------------------------------------------------------------
 from openerp import models, fields, api
+import datetime as dt
 
 class comparative_wealth(models.Model):
+
 	_name                             = 'comparative.wealth'
 	_inherit                          = ['mail.thread', 'ir.needaction_mixin']
 	name                              = fields.Many2one('res.partner','Client Name', required=True)
@@ -253,15 +255,36 @@ class comparative_wealth(models.Model):
 		self.wealth_reconciliation_income_ids.unlink()
 		self.wealth_liability_ids.unlink()
 		self.wealth_reconciliation_expense_ids.unlink()
-		self.wealth_assets_ids.unlink()
 		self.cash_closing_1_ids.unlink()
 		self.cash_closing_2_ids.unlink()
+		self.cash_opening_ids.unlink()
+		self.wealth_reconciliation_opening_ids.unlink()
+		years = {
+			'y2005' : '2005',
+			'y2006' : '2006',
+			'y2007' : '2007',
+			'y2008' : '2008',
+			'y2009' : '2009',
+			'y2010' : '2010',
+			'y2011' : '2011',
+			'y2012' : '2012',
+			'y2013' : '2013',
+			'y2014' : '2014',
+			'y2015' : '2015',
+			'y2016' : '2016',
+			'y2017' : '2017',
+			'y2018' : '2018',
+			'y2019' : '2019',
+			'y2020' : '2020',
+			}
+
 		for y in self:
 
 			for x in self.cash_receipts_ids.search([('receipt_type','=','income')]):
 
 				y.wealth_reconciliation_income_ids.create({
 					'description' : x.description,
+					'receipt_type': x.tax_type,
 					'y2005' : x.y2005,
 					'y2006' : x.y2006,
 					'y2007' : x.y2007,
@@ -281,33 +304,74 @@ class comparative_wealth(models.Model):
 					'wealth_income_id' : y.id
 					})
 
+			for x in self.cash_receipts_ids.search([('receipt_type','=','capital_gain'),('receipts_id.id','=',self.id)]):
+
+				y.wealth_reconciliation_income_ids.create({
+					'description' : x.description,
+					'receipt_type': x.tax_type,
+					'y2005' : (x.capital_gain.capital_gain if x.y2005 > 0 else 0),
+					'y2006' : (x.capital_gain.capital_gain if x.y2006 > 0 else 0),
+					'y2007' : (x.capital_gain.capital_gain if x.y2007 > 0 else 0),
+					'y2008' : (x.capital_gain.capital_gain if x.y2008 > 0 else 0),
+					'y2009' : (x.capital_gain.capital_gain if x.y2009 > 0 else 0),
+					'y2010' : (x.capital_gain.capital_gain if x.y2010 > 0 else 0),
+					'y2011' : (x.capital_gain.capital_gain if x.y2011 > 0 else 0),
+					'y2012' : (x.capital_gain.capital_gain if x.y2012 > 0 else 0),
+					'y2013' : (x.capital_gain.capital_gain if x.y2013 > 0 else 0),
+					'y2014' : (x.capital_gain.capital_gain if x.y2014 > 0 else 0),
+					'y2015' : (x.capital_gain.capital_gain if x.y2015 > 0 else 0),
+					'y2016' : (x.capital_gain.capital_gain if x.y2016 > 0 else 0),
+					'y2017' : (x.capital_gain.capital_gain if x.y2017 > 0 else 0),
+					'y2018' : (x.capital_gain.capital_gain if x.y2018 > 0 else 0),
+					'y2019' : (x.capital_gain.capital_gain if x.y2019 > 0 else 0),
+					'y2020' : (x.capital_gain.capital_gain if x.y2020 > 0 else 0),
+					'wealth_income_id' : y.id
+					})
+
 			for x in self.cash_receipts_ids.search([('receipt_type','=','liability')]):
+				
+				liability_2005 = x.y2005
+				liability_2006 = x.y2006 + (liability_2005 if int(years['y2006']) <= int(dt.datetime.now().year) else 0 ) 
+				liability_2007 = x.y2007 + (liability_2006 if int(years['y2007']) <= int(dt.datetime.now().year) else 0 ) 
+				liability_2008 = x.y2008 + (liability_2007 if int(years['y2008']) <= int(dt.datetime.now().year) else 0 ) 
+				liability_2009 = x.y2009 + (liability_2008 if int(years['y2009']) <= int(dt.datetime.now().year) else 0 ) 
+				liability_2010 = x.y2010 + (liability_2009 if int(years['y2010']) <= int(dt.datetime.now().year) else 0 ) 
+				liability_2011 = x.y2011 + (liability_2010 if int(years['y2011']) <= int(dt.datetime.now().year) else 0 ) 
+				liability_2012 = x.y2012 + (liability_2011 if int(years['y2012']) <= int(dt.datetime.now().year) else 0 ) 
+				liability_2013 = x.y2013 + (liability_2012 if int(years['y2013']) <= int(dt.datetime.now().year) else 0 ) 
+				liability_2014 = x.y2014 + (liability_2013 if int(years['y2014']) <= int(dt.datetime.now().year) else 0 ) 
+				liability_2015 = x.y2015 + (liability_2014 if int(years['y2015']) <= int(dt.datetime.now().year) else 0 ) 
+				liability_2016 = x.y2016 + (liability_2015 if int(years['y2016']) <= int(dt.datetime.now().year) else 0 ) 
+				liability_2017 = x.y2017 + (liability_2016 if int(years['y2017']) <= int(dt.datetime.now().year) else 0 ) 
+				liability_2018 = x.y2018 + (liability_2017 if int(years['y2018']) <= int(dt.datetime.now().year) else 0 ) 
+				liability_2019 = x.y2019 + (liability_2018 if int(years['y2019']) <= int(dt.datetime.now().year) else 0 ) 
+				liability_2020 = x.y2020 + (liability_2019 if int(years['y2020']) <= int(dt.datetime.now().year) else 0 ) 
 
 				y.wealth_liability_ids.create({
 					'description' : x.description,
-					'y2005' : x.y2005,
-					'y2006' : x.y2006,
-					'y2007' : x.y2007,
-					'y2008' : x.y2008,
-					'y2009' : x.y2009,
-					'y2010' : x.y2010,
-					'y2011' : x.y2011,
-					'y2012' : x.y2012,
-					'y2013' : x.y2013,
-					'y2014' : x.y2014,
-					'y2015' : x.y2015,
-					'y2016' : x.y2016,
-					'y2017' : x.y2017,
-					'y2018' : x.y2018,
-					'y2019' : x.y2019,
-					'y2020' : x.y2020,
+					'y2005' : liability_2005,
+					'y2006' : liability_2006,
+					'y2007' : liability_2007,
+					'y2008' : liability_2008,
+					'y2009' : liability_2009,
+					'y2010' : liability_2010,
+					'y2011' : liability_2011,
+					'y2012' : liability_2012,
+					'y2013' : liability_2013,
+					'y2014' : liability_2014,
+					'y2015' : liability_2015,
+					'y2016' : liability_2016,
+					'y2017' : liability_2017,
+					'y2018' : liability_2018,
+					'y2019' : liability_2019,
+					'y2020' : liability_2020,
 					'liability_id' : y.id
 					})
 
-			for x in self.cash_payments_ids.search([('receipt_type','=','expense')]):
-
+			for x in self.cash_payments_ids.search([('receipt_type','=','expense'),('payments_id.id','=',self.id)]):
 				y.wealth_reconciliation_expense_ids.create({
 					'description' : x.description,
+					'receipt_type': x.tax_type,
 					'y2005' : x.y2005,
 					'y2006' : x.y2006,
 					'y2007' : x.y2007,
@@ -327,49 +391,110 @@ class comparative_wealth(models.Model):
 					'wealth_expense_id' : y.id
 					})
 
-			for x in self.cash_payments_ids.search([('receipt_type','=','asset')]):
-
-				y.wealth_assets_ids.create({
-					'description' : x.description,
-					'y2005' : x.y2005,
-					'y2006' : x.y2006,
-					'y2007' : x.y2007,
-					'y2008' : x.y2008,
-					'y2009' : x.y2009,
-					'y2010' : x.y2010,
-					'y2011' : x.y2011,
-					'y2012' : x.y2012,
-					'y2013' : x.y2013,
-					'y2014' : x.y2014,
-					'y2015' : x.y2015,
-					'y2016' : x.y2016,
-					'y2017' : x.y2017,
-					'y2018' : x.y2018,
-					'y2019' : x.y2019,
-					'y2020' : x.y2020,
-					'assets_id' : y.id
-					})
-
 			for x in self.cash_payments_ids.search([('receipt_type','=','loan_repayment')]):
 
 				if y.wealth_liability_ids.description == x.description:
+
+					wealth_liability_y2005 = y.wealth_liability_ids.y2005
+					wealth_liability_y2006 = y.wealth_liability_ids.y2006 - (x.y2005)  
+					wealth_liability_y2007 = y.wealth_liability_ids.y2007 - (x.y2006 + x.y2005)  
+					wealth_liability_y2008 = y.wealth_liability_ids.y2008 - (x.y2007 + x.y2006 + x.y2005)  
+					wealth_liability_y2009 = y.wealth_liability_ids.y2009 - (x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+					wealth_liability_y2010 = y.wealth_liability_ids.y2010 - (x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+					wealth_liability_y2011 = y.wealth_liability_ids.y2011 - (x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+					wealth_liability_y2012 = y.wealth_liability_ids.y2012 - (x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+					wealth_liability_y2013 = y.wealth_liability_ids.y2013 - (x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+					wealth_liability_y2014 = y.wealth_liability_ids.y2014 - (x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+					wealth_liability_y2015 = y.wealth_liability_ids.y2015 - (x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+					wealth_liability_y2016 = y.wealth_liability_ids.y2016 - (x.y2015 + x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+					wealth_liability_y2017 = y.wealth_liability_ids.y2017 - (x.y2016 + x.y2015 + x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+					wealth_liability_y2018 = y.wealth_liability_ids.y2018 - (x.y2017 + x.y2016 + x.y2015 + x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+					wealth_liability_y2019 = y.wealth_liability_ids.y2019 - (x.y2018 + x.y2017 + x.y2016 + x.y2015 + x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+					wealth_liability_y2020 = y.wealth_liability_ids.y2020 - (x.y2019 + x.y2018 + x.y2017 + x.y2016 + x.y2015 + x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005) 
+
 					
-					y.wealth_liability_ids.y2005 = y.wealth_liability_ids.y2005 - x.y2005
-					y.wealth_liability_ids.y2006 = y.wealth_liability_ids.y2006 - x.y2006
-					y.wealth_liability_ids.y2007 = y.wealth_liability_ids.y2007 - x.y2007
-					y.wealth_liability_ids.y2008 = y.wealth_liability_ids.y2008 - x.y2008
-					y.wealth_liability_ids.y2009 = y.wealth_liability_ids.y2009 - x.y2009
-					y.wealth_liability_ids.y2010 = y.wealth_liability_ids.y2010 - x.y2010
-					y.wealth_liability_ids.y2011 = y.wealth_liability_ids.y2011 - x.y2011
-					y.wealth_liability_ids.y2012 = y.wealth_liability_ids.y2012 - x.y2012
-					y.wealth_liability_ids.y2013 = y.wealth_liability_ids.y2013 - x.y2013
-					y.wealth_liability_ids.y2014 = y.wealth_liability_ids.y2014 - x.y2014
-					y.wealth_liability_ids.y2015 = y.wealth_liability_ids.y2015 - x.y2015
-					y.wealth_liability_ids.y2016 = y.wealth_liability_ids.y2016 - x.y2016
-					y.wealth_liability_ids.y2017 = y.wealth_liability_ids.y2017 - x.y2017
-					y.wealth_liability_ids.y2018 = y.wealth_liability_ids.y2018 - x.y2018
-					y.wealth_liability_ids.y2019 = y.wealth_liability_ids.y2019 - x.y2019
-					y.wealth_liability_ids.y2020 = y.wealth_liability_ids.y2020 - x.y2020
+					y.wealth_liability_ids.y2005 = (wealth_liability_y2005 - x.y2005 if int(years['y2005']) <= int(dt.datetime.now().year) else 0 )
+					y.wealth_liability_ids.y2006 = (wealth_liability_y2006 - x.y2006 if int(years['y2006']) <= int(dt.datetime.now().year) else 0 )
+					y.wealth_liability_ids.y2007 = (wealth_liability_y2007 - x.y2007 if int(years['y2007']) <= int(dt.datetime.now().year) else 0 )
+					y.wealth_liability_ids.y2008 = (wealth_liability_y2008 - x.y2008 if int(years['y2008']) <= int(dt.datetime.now().year) else 0 )
+					y.wealth_liability_ids.y2009 = (wealth_liability_y2009 - x.y2009 if int(years['y2009']) <= int(dt.datetime.now().year) else 0 )
+					y.wealth_liability_ids.y2010 = (wealth_liability_y2010 - x.y2010 if int(years['y2010']) <= int(dt.datetime.now().year) else 0 )
+					y.wealth_liability_ids.y2011 = (wealth_liability_y2011 - x.y2011 if int(years['y2011']) <= int(dt.datetime.now().year) else 0 )
+					y.wealth_liability_ids.y2012 = (wealth_liability_y2012 - x.y2012 if int(years['y2012']) <= int(dt.datetime.now().year) else 0 )
+					y.wealth_liability_ids.y2013 = (wealth_liability_y2013 - x.y2013 if int(years['y2013']) <= int(dt.datetime.now().year) else 0 )
+					y.wealth_liability_ids.y2014 = (wealth_liability_y2014 - x.y2014 if int(years['y2014']) <= int(dt.datetime.now().year) else 0 )
+					y.wealth_liability_ids.y2015 = (wealth_liability_y2015 - x.y2015 if int(years['y2015']) <= int(dt.datetime.now().year) else 0 )
+					y.wealth_liability_ids.y2016 = (wealth_liability_y2016 - x.y2016 if int(years['y2016']) <= int(dt.datetime.now().year) else 0 )
+					y.wealth_liability_ids.y2017 = (wealth_liability_y2017 - x.y2017 if int(years['y2017']) <= int(dt.datetime.now().year) else 0 )
+					y.wealth_liability_ids.y2018 = (wealth_liability_y2018 - x.y2018 if int(years['y2018']) <= int(dt.datetime.now().year) else 0 )
+					y.wealth_liability_ids.y2019 = (wealth_liability_y2019 - x.y2019 if int(years['y2019']) <= int(dt.datetime.now().year) else 0 )
+					y.wealth_liability_ids.y2020 = (wealth_liability_y2020 - x.y2020 if int(years['y2020']) <= int(dt.datetime.now().year) else 0 )
+
+			for x in self.cash_reconciliation_balance_ids:
+				y.cash_opening_ids.create({
+					'description':x.description,
+					'receipt_type':x.receipt_type,
+					'y2005': 0,
+					'y2006': x.y2005,
+					'y2007': x.y2006,
+					'y2008': x.y2007,
+					'y2009': x.y2008,
+					'y2010': x.y2009,
+					'y2011': x.y2010,
+					'y2012': x.y2011,
+					'y2013': x.y2012,
+					'y2014': x.y2013,
+					'y2015': x.y2014,
+					'y2016': x.y2015,
+					'y2017': x.y2016,
+					'y2018': x.y2017,
+					'y2019': x.y2018,
+					'y2020': x.y2019,
+					'opening_id':y.id
+					})
+
+			y.cash_closing_2_ids.create({
+				'description' : 'Closing',
+				'y2005' : sum(x.y2005 for x in self.wealth_assets_ids) - sum(z.y2005 for z in self.wealth_liability_ids),
+				'y2006' : sum(x.y2006 for x in self.wealth_assets_ids) - sum(z.y2006 for z in self.wealth_liability_ids),
+				'y2007' : sum(x.y2007 for x in self.wealth_assets_ids) - sum(z.y2007 for z in self.wealth_liability_ids),
+				'y2008' : sum(x.y2008 for x in self.wealth_assets_ids) - sum(z.y2008 for z in self.wealth_liability_ids),
+				'y2009' : sum(x.y2009 for x in self.wealth_assets_ids) - sum(z.y2009 for z in self.wealth_liability_ids),
+				'y2010' : sum(x.y2010 for x in self.wealth_assets_ids) - sum(z.y2010 for z in self.wealth_liability_ids),
+				'y2011' : sum(x.y2011 for x in self.wealth_assets_ids) - sum(z.y2011 for z in self.wealth_liability_ids),
+				'y2012' : sum(x.y2012 for x in self.wealth_assets_ids) - sum(z.y2012 for z in self.wealth_liability_ids),
+				'y2013' : sum(x.y2013 for x in self.wealth_assets_ids) - sum(z.y2013 for z in self.wealth_liability_ids),
+				'y2014' : sum(x.y2014 for x in self.wealth_assets_ids) - sum(z.y2014 for z in self.wealth_liability_ids),
+				'y2015' : sum(x.y2015 for x in self.wealth_assets_ids) - sum(z.y2015 for z in self.wealth_liability_ids),
+				'y2016' : sum(x.y2016 for x in self.wealth_assets_ids) - sum(z.y2016 for z in self.wealth_liability_ids),
+				'y2017' : sum(x.y2017 for x in self.wealth_assets_ids) - sum(z.y2017 for z in self.wealth_liability_ids),
+				'y2018' : sum(x.y2018 for x in self.wealth_assets_ids) - sum(z.y2018 for z in self.wealth_liability_ids),
+				'y2019' : sum(x.y2019 for x in self.wealth_assets_ids) - sum(z.y2019 for z in self.wealth_liability_ids),
+				'y2020' : sum(x.y2020 for x in self.wealth_assets_ids) - sum(z.y2020 for z in self.wealth_liability_ids),
+				'closing_2_id' : y.id
+				})
+
+			for x in self.cash_closing_2_ids:
+				y.wealth_reconciliation_opening_ids.create({
+					'description': 'Opening',
+					'y2005': 0,
+					'y2006': x.y2005,
+					'y2007': x.y2006,
+					'y2008': x.y2007,
+					'y2009': x.y2008,
+					'y2010': x.y2009,
+					'y2011': x.y2010,
+					'y2012': x.y2011,
+					'y2013': x.y2012,
+					'y2014': x.y2013,
+					'y2015': x.y2014,
+					'y2016': x.y2015,
+					'y2017': x.y2016,
+					'y2018': x.y2017,
+					'y2019': x.y2018,
+					'y2020': x.y2019,
+					'wealth_open_id':y.id
+					})
 
 			y.cash_closing_1_ids.create({
 				'description' : 'Closing',
@@ -392,26 +517,57 @@ class comparative_wealth(models.Model):
 				'closing_1_id' : y.id
 				})
 
-			y.cash_closing_2_ids.create({
-				'description' : 'Closing',
-				'y2005' : sum(x.y2005 for x in self.wealth_assets_ids) - sum(z.y2005 for z in self.wealth_liability_ids),
-				'y2006' : sum(x.y2006 for x in self.wealth_assets_ids) - sum(z.y2006 for z in self.wealth_liability_ids),
-				'y2007' : sum(x.y2007 for x in self.wealth_assets_ids) - sum(z.y2007 for z in self.wealth_liability_ids),
-				'y2008' : sum(x.y2008 for x in self.wealth_assets_ids) - sum(z.y2008 for z in self.wealth_liability_ids),
-				'y2009' : sum(x.y2009 for x in self.wealth_assets_ids) - sum(z.y2009 for z in self.wealth_liability_ids),
-				'y2010' : sum(x.y2010 for x in self.wealth_assets_ids) - sum(z.y2010 for z in self.wealth_liability_ids),
-				'y2011' : sum(x.y2011 for x in self.wealth_assets_ids) - sum(z.y2011 for z in self.wealth_liability_ids),
-				'y2012' : sum(x.y2012 for x in self.wealth_assets_ids) - sum(z.y2012 for z in self.wealth_liability_ids),
-				'y2013' : sum(x.y2013 for x in self.wealth_assets_ids) - sum(z.y2013 for z in self.wealth_liability_ids),
-				'y2014' : sum(x.y2014 for x in self.wealth_assets_ids) - sum(z.y2014 for z in self.wealth_liability_ids),
-				'y2015' : sum(x.y2015 for x in self.wealth_assets_ids) - sum(z.y2015 for z in self.wealth_liability_ids),
-				'y2016' : sum(x.y2016 for x in self.wealth_assets_ids) - sum(z.y2016 for z in self.wealth_liability_ids),
-				'y2017' : sum(x.y2017 for x in self.wealth_assets_ids) - sum(z.y2017 for z in self.wealth_liability_ids),
-				'y2018' : sum(x.y2018 for x in self.wealth_assets_ids) - sum(z.y2018 for z in self.wealth_liability_ids),
-				'y2019' : sum(x.y2019 for x in self.wealth_assets_ids) - sum(z.y2019 for z in self.wealth_liability_ids),
-				'y2020' : sum(x.y2020 for x in self.wealth_assets_ids) - sum(z.y2020 for z in self.wealth_liability_ids),
-				'closing_2_id' : y.id
+	@api.multi
+	def upload_assets(self):
+		own_id_1 = []
+		for y in self.wealth_assets_ids:
+			own_id_1.append(y.own_id)
+		for x in self.cash_payments_ids.search([('receipt_type','=','asset'),('payments_id.id','=',self.id),('id','!=',own_id_1)]):
+			self.wealth_assets_ids.create({
+				'description' : x.description,
+				'y2005' : x.y2005,
+				'y2006' : x.y2006,
+				'y2007' : x.y2007,
+				'y2008' : x.y2008,
+				'y2009' : x.y2009,
+				'y2010' : x.y2010,
+				'y2011' : x.y2011,
+				'y2012' : x.y2012,
+				'y2013' : x.y2013,
+				'y2014' : x.y2014,
+				'y2015' : x.y2015,
+				'y2016' : x.y2016,
+				'y2017' : x.y2017,
+				'y2018' : x.y2018,
+				'y2019' : x.y2019,
+				'y2020' : x.y2020,
+				'own_id': x.id,
+				'assets_id' : self.id
 				})
+
+		
+		for x in self.cash_payments_ids.search([('receipt_type','=','asset'),('payments_id.id','=',self.id),('id','=',own_id_1)]):
+			for y in self.wealth_assets_ids:
+				if y.own_id == x.id :
+					y.description = x.description
+					y.y2005 = (y.y2005 if x.y2005 == 0 else x.y2005)
+					y.y2006 = (y.y2006 if x.y2006 == 0 else x.y2006)
+					y.y2007 = (y.y2007 if x.y2007 == 0 else x.y2007)
+					y.y2008 = (y.y2008 if x.y2008 == 0 else x.y2008)
+					y.y2009 = (y.y2009 if x.y2009 == 0 else x.y2009)
+					y.y2010 = (y.y2010 if x.y2010 == 0 else x.y2010)
+					y.y2011 = (y.y2011 if x.y2011 == 0 else x.y2011)
+					y.y2012 = (y.y2012 if x.y2012 == 0 else x.y2012)
+					y.y2013 = (y.y2013 if x.y2013 == 0 else x.y2013)
+					y.y2014 = (y.y2014 if x.y2014 == 0 else x.y2014)
+					y.y2015 = (y.y2015 if x.y2015 == 0 else x.y2015)
+					y.y2016 = (y.y2016 if x.y2016 == 0 else x.y2016)
+					y.y2017 = (y.y2017 if x.y2017 == 0 else x.y2017)
+					y.y2018 = (y.y2018 if x.y2018 == 0 else x.y2018)
+					y.y2019 = (y.y2019 if x.y2019 == 0 else x.y2019)
+					y.y2020 = (y.y2020 if x.y2020 == 0 else x.y2020)
+					y.own_id = x.id
+					y.assets_id = self.id
 
 	@api.multi
 	def button_open_wizard_method(self):

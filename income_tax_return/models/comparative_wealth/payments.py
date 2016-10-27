@@ -24,6 +24,7 @@ class payments(models.Model):
 	y2018 = fields.Float(string = "2018")
 	y2019 = fields.Float(string = "2019")
 	y2020 = fields.Float(string = "2020")
+	hidden_id = fields.Boolean(string="Hidden Id", default=False,)
 	sequence = fields.Integer(string ='Sequence')
 	_order   = 'sequence'
 	
@@ -32,6 +33,15 @@ class payments(models.Model):
             ('asset', 'Asset'),
             ('loan_repayment', 'Loan Repayment'),
             ])
+
+	tax_type    = fields.Selection([
+        ('adjustable', 'Adjustable'),
+        ('non_adjustable', 'Non Adjustable'),
+        ('expense', 'Expense'),
+        ('minimum', 'Minimum'),
+		('tax_ftr', 'Tax FTR'),
+		('deductible_allowance', 'Deductible Allowance')
+        ])
 
 	payments_id = fields.Many2one('comparative.wealth',
         ondelete='cascade', string="Wealth Reconciliation", required=True)

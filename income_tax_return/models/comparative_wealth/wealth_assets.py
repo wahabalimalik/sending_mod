@@ -7,7 +7,9 @@ from openerp import models, fields, api
 
 class wealth_assets(models.Model):
 	_name = 'wealth.assets'
+	_rec_name = 'description'
 	description = fields.Char(string = "Description", required=True)
+	opening_assets = fields.Boolean(string="Opening", default=False)
 	types = fields.Many2one('assets_and_liabilities.assets_and_liabilities' , string ="Type")
 	y2005 = fields.Float(string = "2005")
 	y2006 = fields.Float(string = "2006")
@@ -27,6 +29,9 @@ class wealth_assets(models.Model):
 	y2020 = fields.Float(string = "2020")
 	sequence = fields.Integer(string ='Sequence')
 	_order   = 'sequence'
+
+
+	own_id   = fields.Integer()   
 
 	assets_id = fields.Many2one('comparative.wealth',
         ondelete='cascade', string="Wealth Statement", required=True)
