@@ -610,6 +610,48 @@
                                         </page>
                                     <!-- Page-"Wealth Statement"-ENDS -->
 
+                                    <!-- Page-"Capital"-START -->
+                                        <page string="Capital">
+                                            <!-- Workbook-"Capital Working"-START -->
+                                                <group name="capital_working" string="Capital Working">
+                                                </group>
+                                                <field name="capital_working_workbook_id" attrs="{'invisible': [('all_years', '==', True)]}" nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="business"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                    </tree>
+                                                </field>
+                                                
+                                                <field name="capital_working_workbook_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
+                                                    <tree editable="bottom">
+                                                        <field name="sequence" widget="handle" />
+                                                        <field name="business"/>
+                                                        <field name="y2005" sum="Total"/>
+                                                        <field name="y2006" sum="Total"/>
+                                                        <field name="y2007" sum="Total"/>
+                                                        <field name="y2008" sum="Total"/>
+                                                        <field name="y2009" sum="Total"/>
+                                                        <field name="y2010" sum="Total"/>
+                                                        <field name="y2011" sum="Total"/>
+                                                        <field name="y2012" sum="Total"/>
+                                                        <field name="y2013" sum="Total"/>
+                                                        <field name="y2014" sum="Total"/>
+                                                        <field name="y2015" sum="Total"/>
+                                                        <field name="y2016" sum="Total"/>
+                                                        <field name="y2017" sum="Total"/>
+                                                        <field name="y2018" sum="Total"/>
+                                                        <field name="y2019" sum="Total"/>
+                                                        <field name="y2020" sum="Total"/>
+
+                                                    </tree>
+                                                </field>
+                                            <!-- Workbook-"Capital Working"-ENDS -->
+                                        </page>
+                                    <!-- Page-"Capital"-ENDS -->
+
                                 </notebook>
                             </sheet>
                             <!-- Mail foram-START -->
@@ -927,7 +969,7 @@
                 <menuitem name="Tax Rates Table" id="tax_rates_table_child" parent="menu_income_tax_returns_child" action="tax_rates_table_action" sequence="4"/>
             <!--************************[Menu-ENDS]***************************-->
 
-        <!--!!______________________[Tax Rates Table-ENDS]_______________________________!!-->
+        <!--!!______________________[Tax Rates Table-ENDS]__________________________________!!-->
 
         <!--=====================================================================================
         #    v: Capital Gain.
@@ -998,6 +1040,70 @@
                 <menuitem name="Capital Gain" id="capital_gain_child" parent="menu_income_tax_returns_child" action="capital_gain_action" sequence="5"/>
             <!--************************[Menu-ENDS]***************************-->
 
-        <!--!!______________________[Capital Gain-ENDS]_______________________________!!-->
+        <!--!!______________________[Capital Gain-ENDS]_____________________________________!!-->
+
+        <!--=====================================================================================
+        #    vi: Capital.
+        ======================================================================================-->
+
+            <!--========================[Form View-START]=====================-->
+
+                <record id="capital_working_sub_form_view" model="ir.ui.view">
+                    <field name="name">capital_working_sub_form_view</field>
+                    <field name="model">capital_working_sub.capital_working_sub</field>
+                    <field name="type">form</field>
+                    <field name="arch" type="xml">
+                        <form string="Capital">
+                            <sheet>
+                                <group name="group_top">
+                                        <field name="business"/>
+                                </group>
+                                <notebook col="4">
+                                    <page string="Capital Working" colspan="4">
+                                        <field name="capital_working_id" nolabel='1'>
+                                            <tree editable="bottom">
+                                                <field name="description"/>
+                                                <field name="y2005"/>
+                                                <field name="y2006"/>
+                                                <field name="y2007"/>
+                                                <field name="y2008"/>
+                                                <field name="y2009"/>
+                                                <field name="y2010"/>
+                                                <field name="y2011"/>
+                                                <field name="y2012"/>
+                                                <field name="y2013"/>
+                                                <field name="y2014"/>
+                                                <field name="y2015"/>
+                                                <field name="y2016"/>
+                                                <field name="y2017"/>
+                                                <field name="y2018"/>
+                                                <field name="y2019"/>
+                                                <field name="y2020"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                </notebook>
+                            </sheet>
+                        </form>
+                    </field>
+                </record>
+            <!--************************[Form View-ENDS]**********************-->
+
+            <!--========================[Action-START]========================-->
+
+                <record model="ir.actions.act_window" id="capital_working_sub_action">
+                    <field name="name">Capital Working</field>
+                    <field name="res_model">capital_working_sub.capital_working_sub</field>
+                    <field name="view_type">form</field>
+                    <field name="view_mode">tree,form</field>
+                </record>
+            <!--************************[Action-ENDS]*************************-->
+
+            <!--========================[Menu-START]==========================-->
+
+                <menuitem name="Capital Working" id="capital_working_sub_child" parent="menu_income_tax_returns_child" action="capital_working_sub_action" sequence="6"/>
+            <!--************************[Menu-ENDS]***************************-->
+
+        <!--!!______________________[Capital-ENDS]__________________________________________!!-->
     </data>
 </openerp>

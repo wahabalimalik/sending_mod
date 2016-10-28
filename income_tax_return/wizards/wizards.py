@@ -47,16 +47,17 @@ class DedyYuristiawan(models.TransientModel):
             # ('y2019', '2019'),
             # ('y2020', '2020')
             ], default='y2016')
-    def _default_session(self):
-        return 
+    # def _default_session(self):
+    #     return 
     
     @api.multi
     def create_request(self):
+        
         active_class =self.env['comparative.wealth'].browse(self._context.get('active_id'))
-        print active_class.id
         sending_year = self.year_shifting
         receiving_year = self.year_receiving
-        a_n_l_recs  = self.env.cr.execute('SELECT id,'+sending_year+' FROM wealth_statement WHERE wealth_id ='+str(active_class.id))
+        a_n_l_recs  = self.env.cr.execute('SELECT id,'+sending_year+' FROM wealth_assets WHERE assets_id ='+str(active_class.id))
+
         a_n_l_recs_info = self.env.cr.fetchall()
         for p in a_n_l_recs_info:
-            self.env.cr.execute("update wealth_statement set "+receiving_year+"='"+str(p[1])+"' WHERE id = "+str(p[0]))
+            self.env.cr.execute("update wealth_assets set "+receiving_year+"='"+str(p[1])+"' WHERE id = "+str(p[0]))

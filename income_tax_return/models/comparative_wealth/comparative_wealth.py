@@ -38,7 +38,8 @@ class comparative_wealth(models.Model):
 	cash_closing_1_ids                = fields.One2many('closing_1.closing_1', 'closing_1_id')
 	cash_closing_2_id                 = fields.One2many('closing_2.closing_2', 'closing_2_id')
 	cash_closing_2_ids                = fields.One2many('closing_2.closing_2', 'closing_2_id')
-
+	capital_working_workbook_id       = fields.One2many('capital_working.capital_working', 'capital_working_id')
+	capital_working_workbook_ids      = fields.One2many('capital_working.capital_working', 'capital_working_id')
 
 	ttl_2011 = fields.Float(string="Total_2011 : " , compute="_compute_reconciliation_difference")
 	ttl_2012 = fields.Float(string="Total_2012 : " , compute="_compute_reconciliation_difference")
@@ -280,7 +281,7 @@ class comparative_wealth(models.Model):
 
 		for y in self:
 
-			for x in self.cash_receipts_ids.search([('receipt_type','=','income')]):
+			for x in self.cash_receipts_ids.search([('receipt_type','=','income'),('receipts_id.id','=',self.id)]):
 
 				y.wealth_reconciliation_income_ids.create({
 					'description' : x.description,
@@ -328,8 +329,9 @@ class comparative_wealth(models.Model):
 					'wealth_income_id' : y.id
 					})
 
-			for x in self.cash_receipts_ids.search([('receipt_type','=','liability')]):
-				
+			
+			for x in self.cash_receipts_ids.search([('receipt_type','=','liability'),('receipts_id.id','=',self.id)]):
+
 				liability_2005 = x.y2005
 				liability_2006 = x.y2006 + (liability_2005 if int(years['y2006']) <= int(dt.datetime.now().year) else 0 ) 
 				liability_2007 = x.y2007 + (liability_2006 if int(years['y2007']) <= int(dt.datetime.now().year) else 0 ) 
@@ -391,44 +393,44 @@ class comparative_wealth(models.Model):
 					'wealth_expense_id' : y.id
 					})
 
-			for x in self.cash_payments_ids.search([('receipt_type','=','loan_repayment')]):
+			for x in self.cash_payments_ids.search([('receipt_type','=','loan_repayment'),('payments_id.id','=',self.id)]):
+				for z in self.wealth_liability_ids:
+					if z.description == x.description:
 
-				if y.wealth_liability_ids.description == x.description:
+						wealth_liability_y2005 = z.y2005
+						wealth_liability_y2006 = z.y2006 - (x.y2005)  
+						wealth_liability_y2007 = z.y2007 - (x.y2006 + x.y2005)  
+						wealth_liability_y2008 = z.y2008 - (x.y2007 + x.y2006 + x.y2005)  
+						wealth_liability_y2009 = z.y2009 - (x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+						wealth_liability_y2010 = z.y2010 - (x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+						wealth_liability_y2011 = z.y2011 - (x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+						wealth_liability_y2012 = z.y2012 - (x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+						wealth_liability_y2013 = z.y2013 - (x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+						wealth_liability_y2014 = z.y2014 - (x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+						wealth_liability_y2015 = z.y2015 - (x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+						wealth_liability_y2016 = z.y2016 - (x.y2015 + x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+						wealth_liability_y2017 = z.y2017 - (x.y2016 + x.y2015 + x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+						wealth_liability_y2018 = z.y2018 - (x.y2017 + x.y2016 + x.y2015 + x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+						wealth_liability_y2019 = z.y2019 - (x.y2018 + x.y2017 + x.y2016 + x.y2015 + x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
+						wealth_liability_y2020 = z.y2020 - (x.y2019 + x.y2018 + x.y2017 + x.y2016 + x.y2015 + x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005) 
 
-					wealth_liability_y2005 = y.wealth_liability_ids.y2005
-					wealth_liability_y2006 = y.wealth_liability_ids.y2006 - (x.y2005)  
-					wealth_liability_y2007 = y.wealth_liability_ids.y2007 - (x.y2006 + x.y2005)  
-					wealth_liability_y2008 = y.wealth_liability_ids.y2008 - (x.y2007 + x.y2006 + x.y2005)  
-					wealth_liability_y2009 = y.wealth_liability_ids.y2009 - (x.y2008 + x.y2007 + x.y2006 + x.y2005)  
-					wealth_liability_y2010 = y.wealth_liability_ids.y2010 - (x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
-					wealth_liability_y2011 = y.wealth_liability_ids.y2011 - (x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
-					wealth_liability_y2012 = y.wealth_liability_ids.y2012 - (x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
-					wealth_liability_y2013 = y.wealth_liability_ids.y2013 - (x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
-					wealth_liability_y2014 = y.wealth_liability_ids.y2014 - (x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
-					wealth_liability_y2015 = y.wealth_liability_ids.y2015 - (x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
-					wealth_liability_y2016 = y.wealth_liability_ids.y2016 - (x.y2015 + x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
-					wealth_liability_y2017 = y.wealth_liability_ids.y2017 - (x.y2016 + x.y2015 + x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
-					wealth_liability_y2018 = y.wealth_liability_ids.y2018 - (x.y2017 + x.y2016 + x.y2015 + x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
-					wealth_liability_y2019 = y.wealth_liability_ids.y2019 - (x.y2018 + x.y2017 + x.y2016 + x.y2015 + x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)  
-					wealth_liability_y2020 = y.wealth_liability_ids.y2020 - (x.y2019 + x.y2018 + x.y2017 + x.y2016 + x.y2015 + x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005) 
-
-					
-					y.wealth_liability_ids.y2005 = (wealth_liability_y2005 - x.y2005 if int(years['y2005']) <= int(dt.datetime.now().year) else 0 )
-					y.wealth_liability_ids.y2006 = (wealth_liability_y2006 - x.y2006 if int(years['y2006']) <= int(dt.datetime.now().year) else 0 )
-					y.wealth_liability_ids.y2007 = (wealth_liability_y2007 - x.y2007 if int(years['y2007']) <= int(dt.datetime.now().year) else 0 )
-					y.wealth_liability_ids.y2008 = (wealth_liability_y2008 - x.y2008 if int(years['y2008']) <= int(dt.datetime.now().year) else 0 )
-					y.wealth_liability_ids.y2009 = (wealth_liability_y2009 - x.y2009 if int(years['y2009']) <= int(dt.datetime.now().year) else 0 )
-					y.wealth_liability_ids.y2010 = (wealth_liability_y2010 - x.y2010 if int(years['y2010']) <= int(dt.datetime.now().year) else 0 )
-					y.wealth_liability_ids.y2011 = (wealth_liability_y2011 - x.y2011 if int(years['y2011']) <= int(dt.datetime.now().year) else 0 )
-					y.wealth_liability_ids.y2012 = (wealth_liability_y2012 - x.y2012 if int(years['y2012']) <= int(dt.datetime.now().year) else 0 )
-					y.wealth_liability_ids.y2013 = (wealth_liability_y2013 - x.y2013 if int(years['y2013']) <= int(dt.datetime.now().year) else 0 )
-					y.wealth_liability_ids.y2014 = (wealth_liability_y2014 - x.y2014 if int(years['y2014']) <= int(dt.datetime.now().year) else 0 )
-					y.wealth_liability_ids.y2015 = (wealth_liability_y2015 - x.y2015 if int(years['y2015']) <= int(dt.datetime.now().year) else 0 )
-					y.wealth_liability_ids.y2016 = (wealth_liability_y2016 - x.y2016 if int(years['y2016']) <= int(dt.datetime.now().year) else 0 )
-					y.wealth_liability_ids.y2017 = (wealth_liability_y2017 - x.y2017 if int(years['y2017']) <= int(dt.datetime.now().year) else 0 )
-					y.wealth_liability_ids.y2018 = (wealth_liability_y2018 - x.y2018 if int(years['y2018']) <= int(dt.datetime.now().year) else 0 )
-					y.wealth_liability_ids.y2019 = (wealth_liability_y2019 - x.y2019 if int(years['y2019']) <= int(dt.datetime.now().year) else 0 )
-					y.wealth_liability_ids.y2020 = (wealth_liability_y2020 - x.y2020 if int(years['y2020']) <= int(dt.datetime.now().year) else 0 )
+						
+						z.y2005 = (wealth_liability_y2005 - x.y2005 if int(years['y2005']) <= int(dt.datetime.now().year) else 0 )
+						z.y2006 = (wealth_liability_y2006 - x.y2006 if int(years['y2006']) <= int(dt.datetime.now().year) else 0 )
+						z.y2007 = (wealth_liability_y2007 - x.y2007 if int(years['y2007']) <= int(dt.datetime.now().year) else 0 )
+						z.y2008 = (wealth_liability_y2008 - x.y2008 if int(years['y2008']) <= int(dt.datetime.now().year) else 0 )
+						z.y2009 = (wealth_liability_y2009 - x.y2009 if int(years['y2009']) <= int(dt.datetime.now().year) else 0 )
+						z.y2010 = (wealth_liability_y2010 - x.y2010 if int(years['y2010']) <= int(dt.datetime.now().year) else 0 )
+						z.y2011 = (wealth_liability_y2011 - x.y2011 if int(years['y2011']) <= int(dt.datetime.now().year) else 0 )
+						z.y2012 = (wealth_liability_y2012 - x.y2012 if int(years['y2012']) <= int(dt.datetime.now().year) else 0 )
+						z.y2013 = (wealth_liability_y2013 - x.y2013 if int(years['y2013']) <= int(dt.datetime.now().year) else 0 )
+						z.y2014 = (wealth_liability_y2014 - x.y2014 if int(years['y2014']) <= int(dt.datetime.now().year) else 0 )
+						z.y2015 = (wealth_liability_y2015 - x.y2015 if int(years['y2015']) <= int(dt.datetime.now().year) else 0 )
+						z.y2016 = (wealth_liability_y2016 - x.y2016 if int(years['y2016']) <= int(dt.datetime.now().year) else 0 )
+						z.y2017 = (wealth_liability_y2017 - x.y2017 if int(years['y2017']) <= int(dt.datetime.now().year) else 0 )
+						z.y2018 = (wealth_liability_y2018 - x.y2018 if int(years['y2018']) <= int(dt.datetime.now().year) else 0 )
+						z.y2019 = (wealth_liability_y2019 - x.y2019 if int(years['y2019']) <= int(dt.datetime.now().year) else 0 )
+						z.y2020 = (wealth_liability_y2020 - x.y2020 if int(years['y2020']) <= int(dt.datetime.now().year) else 0 )
 
 			for x in self.cash_reconciliation_balance_ids:
 				y.cash_opening_ids.create({
@@ -516,6 +518,57 @@ class comparative_wealth(models.Model):
 				'y2020' : sum(x.y2020 for x in self.wealth_reconciliation_opening_ids) + sum(z.y2020 for z in self.wealth_reconciliation_income_ids) - sum(c.y2020 for c in self.wealth_reconciliation_expense_ids),
 				'closing_1_id' : y.id
 				})
+
+
+		own_id_1 = []
+		for y in self.wealth_assets_ids:
+			own_id_1.append(y.own_id)
+		for x in self.cash_reconciliation_balance_ids.search([('reconciliation_balance_id.id','=',self.id),('id','!=',own_id_1)]):
+			self.wealth_assets_ids.create({
+				'description' : x.description,
+				'y2005' : x.y2005,
+				'y2006' : x.y2006,
+				'y2007' : x.y2007,
+				'y2008' : x.y2008,
+				'y2009' : x.y2009,
+				'y2010' : x.y2010,
+				'y2011' : x.y2011,
+				'y2012' : x.y2012,
+				'y2013' : x.y2013,
+				'y2014' : x.y2014,
+				'y2015' : x.y2015,
+				'y2016' : x.y2016,
+				'y2017' : x.y2017,
+				'y2018' : x.y2018,
+				'y2019' : x.y2019,
+				'y2020' : x.y2020,
+				'own_id': x.id,
+				'assets_id' : self.id
+				})
+
+		
+		for x in self.cash_reconciliation_balance_ids.search([('reconciliation_balance_id.id','=',self.id),('id','=',own_id_1)]):
+			for z in self.wealth_assets_ids:
+				if z.own_id == x.id :
+					z.description = x.description
+					z.y2005 = (z.y2005 if x.y2005 == 0 else x.y2005)
+					z.y2006 = (z.y2006 if x.y2006 == 0 else x.y2006)
+					z.y2007 = (z.y2007 if x.y2007 == 0 else x.y2007)
+					z.y2008 = (z.y2008 if x.y2008 == 0 else x.y2008)
+					z.y2009 = (z.y2009 if x.y2009 == 0 else x.y2009)
+					z.y2010 = (z.y2010 if x.y2010 == 0 else x.y2010)
+					z.y2011 = (z.y2011 if x.y2011 == 0 else x.y2011)
+					z.y2012 = (z.y2012 if x.y2012 == 0 else x.y2012)
+					z.y2013 = (z.y2013 if x.y2013 == 0 else x.y2013)
+					z.y2014 = (z.y2014 if x.y2014 == 0 else x.y2014)
+					z.y2015 = (z.y2015 if x.y2015 == 0 else x.y2015)
+					z.y2016 = (z.y2016 if x.y2016 == 0 else x.y2016)
+					z.y2017 = (z.y2017 if x.y2017 == 0 else x.y2017)
+					z.y2018 = (z.y2018 if x.y2018 == 0 else x.y2018)
+					z.y2019 = (z.y2019 if x.y2019 == 0 else x.y2019)
+					z.y2020 = (z.y2020 if x.y2020 == 0 else x.y2020)
+					z.own_id = x.id
+					z.assets_id = self.id
 
 	@api.multi
 	def upload_assets(self):
