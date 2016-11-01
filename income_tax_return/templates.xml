@@ -968,8 +968,9 @@
 
                 <menuitem name="Tax Rates Table" id="tax_rates_table_child" parent="menu_income_tax_returns_child" action="tax_rates_table_action" sequence="4"/>
             <!--************************[Menu-ENDS]***************************-->
-
         <!--!!______________________[Tax Rates Table-ENDS]__________________________________!!-->
+
+
 
         <!--=====================================================================================
         #    v: Capital Gain.
@@ -1042,6 +1043,8 @@
 
         <!--!!______________________[Capital Gain-ENDS]_____________________________________!!-->
 
+
+
         <!--=====================================================================================
         #    vi: Capital.
         ======================================================================================-->
@@ -1056,29 +1059,39 @@
                         <form string="Capital">
                             <sheet>
                                 <group name="group_top">
-                                        <field name="business"/>
+                                    <field name="business"/>
+                                    <field name="name"/>
+                                    <field name="all_years"/>
                                 </group>
                                 <notebook col="4">
                                     <page string="Capital Working" colspan="4">
-                                        <field name="capital_working_id" nolabel='1'>
+                                        <field name="capital_working_id" attrs="{'invisible': [('all_years', '!=', False)]}" nolabel='1'>
                                             <tree editable="bottom">
                                                 <field name="description"/>
-                                                <field name="y2005"/>
-                                                <field name="y2006"/>
-                                                <field name="y2007"/>
-                                                <field name="y2008"/>
-                                                <field name="y2009"/>
-                                                <field name="y2010"/>
-                                                <field name="y2011"/>
-                                                <field name="y2012"/>
-                                                <field name="y2013"/>
-                                                <field name="y2014"/>
-                                                <field name="y2015"/>
-                                                <field name="y2016"/>
-                                                <field name="y2017"/>
-                                                <field name="y2018"/>
-                                                <field name="y2019"/>
-                                                <field name="y2020"/>
+                                                <field name="y2014" sum="Total"/>
+                                                <field name="y2015" sum="Total"/>
+                                                <field name="y2016" sum="Total"/>
+                                            </tree>
+                                        </field>
+                                        <field name="capital_working_ids" attrs="{'invisible': [('all_years', '!=', True)]}" nolabel='1'>
+                                            <tree editable="bottom">
+                                                <field name="description"/>
+                                                <field name="y2005" sum="Total"/>
+                                                <field name="y2006" sum="Total"/>
+                                                <field name="y2007" sum="Total"/>
+                                                <field name="y2008" sum="Total"/>
+                                                <field name="y2009" sum="Total"/>
+                                                <field name="y2010" sum="Total"/>
+                                                <field name="y2011" sum="Total"/>
+                                                <field name="y2012" sum="Total"/>
+                                                <field name="y2013" sum="Total"/>
+                                                <field name="y2014" sum="Total"/>
+                                                <field name="y2015" sum="Total"/>
+                                                <field name="y2016" sum="Total"/>
+                                                <field name="y2017" sum="Total"/>
+                                                <field name="y2018" sum="Total"/>
+                                                <field name="y2019" sum="Total"/>
+                                                <field name="y2020" sum="Total"/>
                                             </tree>
                                         </field>
                                     </page>
@@ -1103,7 +1116,6 @@
 
                 <menuitem name="Capital Working" id="capital_working_sub_child" parent="menu_income_tax_returns_child" action="capital_working_sub_action" sequence="6"/>
             <!--************************[Menu-ENDS]***************************-->
-
         <!--!!______________________[Capital-ENDS]__________________________________________!!-->
     </data>
 </openerp>
