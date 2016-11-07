@@ -1,0 +1,90 @@
+<openerp>
+    <data>
+       <record id="hr_contract_custom_view_form" model="ir.ui.view">
+            <field name="name">hr_contract_custom_view_form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='wage']" position="after">
+                    <field name="bonus"/>
+                    <field name="loan_and_advance"/>
+                </xpath>
+                <xpath expr="//page[@string='Work Permit']" position="after">
+                    <page string="Reimbursement" name="reimbbursment">
+                        <group>
+                            <field name="medical_opd"/>
+                            <field name="fuel_other"/>
+                            <field name="overtime"/>
+                            <field name="sr_other"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+       <record id="hr_employee_custom_view_form" model="ir.ui.view">
+            <field name="name">hr_employee_custom_view_form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+		<xpath expr="//field[@name='work_location']" position="after">
+                    <field name="show_engineer"/>
+                    <field name="engineer" attrs="{'invisible':[('show_engineer', '!=', True)]}" />
+		    <field name="blood_group"/>
+                </xpath>
+                <xpath expr="//page[@string='HR Settings']" position="after">
+                    <page string="Family Information" name="family_information">
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="spouse_name"/>
+                                <field name="s_dob"/>
+                            </group>
+                            <group name="group_left">
+                                <field name="s_contact"/>
+                                <field name="s_cnic"/>
+                            </group>
+                        </group>
+                        <group string='Kids Information'>
+                            <field name="family_id" nolabel='1'>
+                                <tree editable="bottom">
+                                    <field name="kid_name"/>
+                                    <field name="sex"/>
+                                    <field name="dob"/>
+                                    <field name="age"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+<<<<<<< HEAD
+=======
+
+       <record id="hr_employee_custom_email_view_form" model="ir.ui.view">
+            <field name="name">hr_employee_custom_email_view_form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='HR Settings']" position="after">
+                    <page string="Email Set up" name="email_set_up">
+                        <group string='Desired E-Mail ID' name="group_top">
+                            <group name="group_left">
+                                <field name="first_email"/>
+                                <field name="email_password"/>
+                            </group>
+                            <group name="group_right">
+                                <field name="second_email"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+>>>>>>> b92544ccfacfc9e020992ff61dd478b94bb4576d
+    </data>
+</openerp>

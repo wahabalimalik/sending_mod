@@ -14,7 +14,7 @@ class income_under_ntr(models.Model):
             ('taxable', 'Taxable'),
             ('exempt', 'Exempt'),
             ('minimum', 'Minimum'),
-
+            ('salary', 'Salary'),
             ])
 
 	income_under_ntr_id = fields.Many2one('tax.computation',

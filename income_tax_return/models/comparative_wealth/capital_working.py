@@ -41,31 +41,8 @@ class capital_working_sub_sub(models.Model):
 
 class capital_working(models.Model):
 	_name    = 'capital_working.capital_working'
-	# active_class =self.env['comparative.wealth'].browse(self._context.get('active_id'))
-	
-	# print active_class
-	# 
-	# def self_class(self):
-	# 	active_class =self.env['comparative.wealth'].browse(self._context.get('active_id'))
-	# 	print "xxxxxxxxxxxxxxxxx"
-	# 	print active_class
-	# self_class(self)
 
-
-	@api.model
-	def _getUserGroupId(self):
-		active_class =self.env['comparative.wealth'].search([])
-		# for x in active_class:
-		print active_class
-		# return 'ddddd'
-	# print getUserGroupId('capital_working.capital_working')
-		# print self.active_id
-		# active_class =self.env['comparative.wealth'].search[('id' , '=', 'active_id')]
-		# print active_class.id
-		return "[('name', '=', 'ddddd')]"
-
-	#name = fields.Many2one('res.partner','Client Name', required=True)
-	business = fields.Many2one('capital_working_sub.capital_working_sub', domain=_getUserGroupId , string = "Business", required=True)
+	business = fields.Many2one('capital_working_sub.capital_working_sub', domain="[('name','=',parent.name)]", string = "Business", required=True)
 	y2005 = fields.Float(string = "2005")
 	y2006 = fields.Float(string = "2006")
 	y2007 = fields.Float(string = "2007")
@@ -87,6 +64,25 @@ class capital_working(models.Model):
 
 	capital_working_id = fields.Many2one('comparative.wealth',
         ondelete='cascade', string="Capital Working", required=True)
-	print "XXXXXXXXXXXXXXXXXXXXXXXX"
 
-	
+	@api.onchange('business')
+	def _onchange_business(self):
+		if len(self.business) > 0:
+			bb = self.business
+			capital_total = self.env['capital_working_sub.capital_working_sub'].search([('business','=',bb.business),('id','=',self.business.id)])
+			self.y2005 = sum(x.y2005 for x in capital_total.capital_working_ids)
+			self.y2006 = sum(x.y2006 for x in capital_total.capital_working_ids)
+			self.y2007 = sum(x.y2007 for x in capital_total.capital_working_ids)
+			self.y2008 = sum(x.y2008 for x in capital_total.capital_working_ids)
+			self.y2009 = sum(x.y2009 for x in capital_total.capital_working_ids)
+			self.y2010 = sum(x.y2010 for x in capital_total.capital_working_ids)
+			self.y2011 = sum(x.y2011 for x in capital_total.capital_working_ids)
+			self.y2012 = sum(x.y2012 for x in capital_total.capital_working_ids)
+			self.y2013 = sum(x.y2013 for x in capital_total.capital_working_ids)
+			self.y2014 = sum(x.y2014 for x in capital_total.capital_working_ids)
+			self.y2015 = sum(x.y2015 for x in capital_total.capital_working_ids)
+			self.y2016 = sum(x.y2016 for x in capital_total.capital_working_ids)
+			self.y2017 = sum(x.y2017 for x in capital_total.capital_working_ids)
+			self.y2018 = sum(x.y2018 for x in capital_total.capital_working_ids)
+			self.y2019 = sum(x.y2019 for x in capital_total.capital_working_ids)
+			self.y2020 = sum(x.y2020 for x in capital_total.capital_working_ids)

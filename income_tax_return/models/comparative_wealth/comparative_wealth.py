@@ -260,6 +260,7 @@ class comparative_wealth(models.Model):
 		self.cash_closing_2_ids.unlink()
 		self.cash_opening_ids.unlink()
 		self.wealth_reconciliation_opening_ids.unlink()
+
 		years = {
 			'y2005' : '2005',
 			'y2006' : '2006',
@@ -278,6 +279,30 @@ class comparative_wealth(models.Model):
 			'y2019' : '2019',
 			'y2020' : '2020',
 			}
+
+		tax_profited = self.env['tax.computation'].search([('client_name.id','=',self.name.id)])
+		for x in tax_profited:
+			self.wealth_reconciliation_income_ids.create({
+				'description' : 'Business Income',
+				'y2005'		  :(x.tax_profit if x.tax_year.code == "2005" else None),		
+				'y2006'		  :(x.tax_profit if x.tax_year.code == "2006" else None),
+				'y2007'		  :(x.tax_profit if x.tax_year.code == "2007" else None),
+				'y2008'		  :(x.tax_profit if x.tax_year.code == "2008" else None),
+				'y2009'		  :(x.tax_profit if x.tax_year.code == "2009" else None),
+				'y2010'		  :(x.tax_profit if x.tax_year.code == "2010" else None),
+				'y2011'		  :(x.tax_profit if x.tax_year.code == "2011" else None),
+				'y2012'		  :(x.tax_profit if x.tax_year.code == "2012" else None),
+				'y2013'		  :(x.tax_profit if x.tax_year.code == "2013" else None),
+				'y2014'		  :(x.tax_profit if x.tax_year.code == "2014" else None),
+				'y2015'		  :(x.tax_profit if x.tax_year.code == "2015" else None),
+				'y2016'		  :(x.tax_profit if x.tax_year.code == "2016" else None),
+				'y2017'		  :(x.tax_profit if x.tax_year.code == "2017" else None),
+				'y2018'		  :(x.tax_profit if x.tax_year.code == "2018" else None),
+				'y2019'		  :(x.tax_profit if x.tax_year.code == "2019" else None),
+				'y2020'		  :(x.tax_profit if x.tax_year.code == "2020" else None),
+				'receipt_type' : 'taxable',
+				'wealth_income_id' : self.id
+				})
 
 		for y in self:
 
@@ -306,30 +331,52 @@ class comparative_wealth(models.Model):
 					})
 
 			for x in self.cash_receipts_ids.search([('receipt_type','=','capital_gain'),('receipts_id.id','=',self.id)]):
+				if x.capital_gain.capital_gain > 0 :
+					y.wealth_reconciliation_income_ids.create({
+						'description' : x.description,
+						'receipt_type': x.tax_type,
+						'y2005' : (x.capital_gain.capital_gain if x.y2005 > 0 else 0),
+						'y2006' : (x.capital_gain.capital_gain if x.y2006 > 0 else 0),
+						'y2007' : (x.capital_gain.capital_gain if x.y2007 > 0 else 0),
+						'y2008' : (x.capital_gain.capital_gain if x.y2008 > 0 else 0),
+						'y2009' : (x.capital_gain.capital_gain if x.y2009 > 0 else 0),
+						'y2010' : (x.capital_gain.capital_gain if x.y2010 > 0 else 0),
+						'y2011' : (x.capital_gain.capital_gain if x.y2011 > 0 else 0),
+						'y2012' : (x.capital_gain.capital_gain if x.y2012 > 0 else 0),
+						'y2013' : (x.capital_gain.capital_gain if x.y2013 > 0 else 0),
+						'y2014' : (x.capital_gain.capital_gain if x.y2014 > 0 else 0),
+						'y2015' : (x.capital_gain.capital_gain if x.y2015 > 0 else 0),
+						'y2016' : (x.capital_gain.capital_gain if x.y2016 > 0 else 0),
+						'y2017' : (x.capital_gain.capital_gain if x.y2017 > 0 else 0),
+						'y2018' : (x.capital_gain.capital_gain if x.y2018 > 0 else 0),
+						'y2019' : (x.capital_gain.capital_gain if x.y2019 > 0 else 0),
+						'y2020' : (x.capital_gain.capital_gain if x.y2020 > 0 else 0),
+						'wealth_income_id' : y.id
+						})
+				elif x.capital_gain.capital_gain < 0 :
+					capital_gain = x.capital_gain.capital_gain * -1
+					y.wealth_reconciliation_expense_ids.create({
+						'description' : x.description,
+						'receipt_type': x.tax_type,
+						'y2005' : (capital_gain if x.y2005 > 0 else 0),
+						'y2006' : (capital_gain if x.y2006 > 0 else 0),
+						'y2007' : (capital_gain if x.y2007 > 0 else 0),
+						'y2008' : (capital_gain if x.y2008 > 0 else 0),
+						'y2009' : (capital_gain if x.y2009 > 0 else 0),
+						'y2010' : (capital_gain if x.y2010 > 0 else 0),
+						'y2011' : (capital_gain if x.y2011 > 0 else 0),
+						'y2012' : (capital_gain if x.y2012 > 0 else 0),
+						'y2013' : (capital_gain if x.y2013 > 0 else 0),
+						'y2014' : (capital_gain if x.y2014 > 0 else 0),
+						'y2015' : (capital_gain if x.y2015 > 0 else 0),
+						'y2016' : (capital_gain if x.y2016 > 0 else 0),
+						'y2017' : (capital_gain if x.y2017 > 0 else 0),
+						'y2018' : (capital_gain if x.y2018 > 0 else 0),
+						'y2019' : (capital_gain if x.y2019 > 0 else 0),
+						'y2020' : (capital_gain if x.y2020 > 0 else 0),
+						'wealth_expense_id' : y.id
+						})
 
-				y.wealth_reconciliation_income_ids.create({
-					'description' : x.description,
-					'receipt_type': x.tax_type,
-					'y2005' : (x.capital_gain.capital_gain if x.y2005 > 0 else 0),
-					'y2006' : (x.capital_gain.capital_gain if x.y2006 > 0 else 0),
-					'y2007' : (x.capital_gain.capital_gain if x.y2007 > 0 else 0),
-					'y2008' : (x.capital_gain.capital_gain if x.y2008 > 0 else 0),
-					'y2009' : (x.capital_gain.capital_gain if x.y2009 > 0 else 0),
-					'y2010' : (x.capital_gain.capital_gain if x.y2010 > 0 else 0),
-					'y2011' : (x.capital_gain.capital_gain if x.y2011 > 0 else 0),
-					'y2012' : (x.capital_gain.capital_gain if x.y2012 > 0 else 0),
-					'y2013' : (x.capital_gain.capital_gain if x.y2013 > 0 else 0),
-					'y2014' : (x.capital_gain.capital_gain if x.y2014 > 0 else 0),
-					'y2015' : (x.capital_gain.capital_gain if x.y2015 > 0 else 0),
-					'y2016' : (x.capital_gain.capital_gain if x.y2016 > 0 else 0),
-					'y2017' : (x.capital_gain.capital_gain if x.y2017 > 0 else 0),
-					'y2018' : (x.capital_gain.capital_gain if x.y2018 > 0 else 0),
-					'y2019' : (x.capital_gain.capital_gain if x.y2019 > 0 else 0),
-					'y2020' : (x.capital_gain.capital_gain if x.y2020 > 0 else 0),
-					'wealth_income_id' : y.id
-					})
-
-			
 			for x in self.cash_receipts_ids.search([('receipt_type','=','liability'),('receipts_id.id','=',self.id)]):
 
 				liability_2005 = x.y2005
@@ -394,6 +441,9 @@ class comparative_wealth(models.Model):
 					})
 
 			for x in self.cash_payments_ids.search([('receipt_type','=','loan_repayment'),('payments_id.id','=',self.id)]):
+				# vv = (x.y2019 + x.y2018 + x.y2017 + x.y2016 + x.y2015 + x.y2014 + x.y2013 + x.y2012 + x.y2011 + x.y2010 + x.y2009 + x.y2008 + x.y2007 + x.y2006 + x.y2005)            
+				# print "pppppppppppppppppppp"
+				# print vv
 				for z in self.wealth_liability_ids:
 					if z.description == x.description:
 
@@ -545,28 +595,127 @@ class comparative_wealth(models.Model):
 				'own_id': x.id,
 				'assets_id' : self.id
 				})
-
 		
 		for x in self.cash_reconciliation_balance_ids.search([('reconciliation_balance_id.id','=',self.id),('id','=',own_id_1)]):
 			for z in self.wealth_assets_ids:
 				if z.own_id == x.id :
+					print "zzzzzzzzzzzzzzzzzzzkkkkkkkkkkkkkkkkk"
+					print x.description
+					print x.y2016
+					print z.y2016
 					z.description = x.description
-					z.y2005 = (z.y2005 if x.y2005 == 0 else x.y2005)
-					z.y2006 = (z.y2006 if x.y2006 == 0 else x.y2006)
-					z.y2007 = (z.y2007 if x.y2007 == 0 else x.y2007)
-					z.y2008 = (z.y2008 if x.y2008 == 0 else x.y2008)
-					z.y2009 = (z.y2009 if x.y2009 == 0 else x.y2009)
-					z.y2010 = (z.y2010 if x.y2010 == 0 else x.y2010)
-					z.y2011 = (z.y2011 if x.y2011 == 0 else x.y2011)
-					z.y2012 = (z.y2012 if x.y2012 == 0 else x.y2012)
-					z.y2013 = (z.y2013 if x.y2013 == 0 else x.y2013)
-					z.y2014 = (z.y2014 if x.y2014 == 0 else x.y2014)
-					z.y2015 = (z.y2015 if x.y2015 == 0 else x.y2015)
-					z.y2016 = (z.y2016 if x.y2016 == 0 else x.y2016)
-					z.y2017 = (z.y2017 if x.y2017 == 0 else x.y2017)
-					z.y2018 = (z.y2018 if x.y2018 == 0 else x.y2018)
-					z.y2019 = (z.y2019 if x.y2019 == 0 else x.y2019)
-					z.y2020 = (z.y2020 if x.y2020 == 0 else x.y2020)
+					z.y2005 = x.y2005
+					z.y2006 = x.y2006
+					z.y2007 = x.y2007
+					z.y2008 = x.y2008
+					z.y2009 = x.y2009
+					z.y2010 = x.y2010
+					z.y2011 = x.y2011
+					z.y2012 = x.y2012
+					z.y2013 = x.y2013
+					z.y2014 = x.y2014
+					z.y2015 = x.y2015
+					z.y2016 = x.y2016
+					z.y2017 = x.y2017
+					z.y2018 = x.y2018
+					z.y2019 = x.y2019
+					z.y2020 = x.y2020
+					z.own_id = x.id
+					z.assets_id = self.id
+
+		for x in self.capital_working_workbook_ids.search([('capital_working_id.id','=',self.id),('id','!=',own_id_1)]):
+			self.wealth_assets_ids.create({
+				'description' : 'Capital ' + x.business.business,
+				'y2005' : x.y2005,
+				'y2006' : x.y2006,
+				'y2007' : x.y2007,
+				'y2008' : x.y2008,
+				'y2009' : x.y2009,
+				'y2010' : x.y2010,
+				'y2011' : x.y2011,
+				'y2012' : x.y2012,
+				'y2013' : x.y2013,
+				'y2014' : x.y2014,
+				'y2015' : x.y2015,
+				'y2016' : x.y2016,
+				'y2017' : x.y2017,
+				'y2018' : x.y2018,
+				'y2019' : x.y2019,
+				'y2020' : x.y2020,
+				'own_id': x.id,
+				'assets_id' : self.id
+				})
+		for x in self.capital_working_workbook_ids.search([('capital_working_id.id','=',self.id),('id','=',own_id_1)]):
+			for z in self.wealth_assets_ids:
+				if z.own_id == x.id :
+					z.description = 'Capital ' + x.business.business
+					z.y2005 = x.y2005
+					z.y2006 = x.y2006
+					z.y2007 = x.y2007
+					z.y2008 = x.y2008
+					z.y2009 = x.y2009
+					z.y2010 = x.y2010
+					z.y2011 = x.y2011
+					z.y2012 = x.y2012
+					z.y2013 = x.y2013
+					z.y2014 = x.y2014
+					z.y2015 = x.y2015
+					z.y2016 = x.y2016
+					z.y2017 = x.y2017
+					z.y2018 = x.y2018
+					z.y2019 = x.y2019
+					z.y2020 = x.y2020
+					z.own_id = x.id
+					z.assets_id = self.id
+
+		for x in self.cash_receipts_ids.search([('receipts_id.id','=',self.id)]):
+			for z in self.wealth_assets_ids:
+				if z.description == x.description and x.receipt_type == 'asset':
+					z.description = x.description + '.'
+					z.y2005 = z.y2005 - x.y2005
+					z.y2006 = z.y2006 - x.y2006
+					z.y2007 = z.y2007 - x.y2007
+					z.y2008 = z.y2008 - x.y2008
+					z.y2009 = z.y2009 - x.y2009
+					z.y2010 = z.y2010 - x.y2010
+					z.y2011 = z.y2011 - x.y2011
+					z.y2012 = z.y2012 - x.y2012
+					z.y2013 = z.y2013 - x.y2013
+					z.y2014 = z.y2014 - x.y2014
+					z.y2015 = z.y2015 - x.y2015
+					z.y2016 = z.y2016 - x.y2016
+					z.y2017 = z.y2017 - x.y2017
+					z.y2018 = z.y2018 - x.y2018
+					z.y2019 = z.y2019 - x.y2019
+					z.y2020 = z.y2020 - x.y2020
+					z.own_id = x.id
+					z.assets_id = self.id
+			for z in self.wealth_assets_ids:
+				if z.description == x.description and x.receipt_type == 'capital_gain':
+					# print 'hahhahahahahhahhahahahahahaha'
+					# gg = x.description
+					# print gg[-1]
+					# print gg[:5]
+					# # if gg[-1] == '.' :
+					# # 	gg = x.description[0:(len(x.description)-1)]
+					# # print gg
+					z.description = x.description + '.'
+					z.y2005 = (z.y2005 - x.capital_gain.purchase_value if x.capital_gain.year_sale.code == '2005' else z.y2005 ) 
+					z.y2006 = (z.y2006 - x.capital_gain.purchase_value if x.capital_gain.year_sale.code == '2006' else z.y2006 ) 
+					z.y2007 = (z.y2007 - x.capital_gain.purchase_value if x.capital_gain.year_sale.code == '2007' else z.y2007 ) 
+					z.y2008 = (z.y2008 - x.capital_gain.purchase_value if x.capital_gain.year_sale.code == '2008' else z.y2008 ) 
+					z.y2009 = (z.y2009 - x.capital_gain.purchase_value if x.capital_gain.year_sale.code == '2009' else z.y2009 ) 
+					z.y2010 = (z.y2010 - x.capital_gain.purchase_value if x.capital_gain.year_sale.code == '2010' else z.y2010 ) 
+					z.y2011 = (z.y2011 - x.capital_gain.purchase_value if x.capital_gain.year_sale.code == '2011' else z.y2011 ) 
+					z.y2012 = (z.y2012 - x.capital_gain.purchase_value if x.capital_gain.year_sale.code == '2012' else z.y2012 ) 
+					z.y2013 = (z.y2013 - x.capital_gain.purchase_value if x.capital_gain.year_sale.code == '2013' else z.y2013 ) 
+					z.y2014 = (z.y2014 - x.capital_gain.purchase_value if x.capital_gain.year_sale.code == '2014' else z.y2014 ) 
+					z.y2015 = (z.y2015 - x.capital_gain.purchase_value if x.capital_gain.year_sale.code == '2015' else z.y2015 ) 
+					z.y2016 = (z.y2016 - x.capital_gain.purchase_value if x.capital_gain.year_sale.code == '2016' else z.y2016 ) 
+					z.y2017 = (z.y2017 - x.capital_gain.purchase_value if x.capital_gain.year_sale.code == '2017' else z.y2017 ) 
+					z.y2018 = (z.y2018 - x.capital_gain.purchase_value if x.capital_gain.year_sale.code == '2018' else z.y2018 ) 
+					z.y2019 = (z.y2019 - x.capital_gain.purchase_value if x.capital_gain.year_sale.code == '2019' else z.y2019 ) 
+					z.y2020 = (z.y2020 - x.capital_gain.purchase_value if x.capital_gain.year_sale.code == '2020' else z.y2020 ) 
 					z.own_id = x.id
 					z.assets_id = self.id
 

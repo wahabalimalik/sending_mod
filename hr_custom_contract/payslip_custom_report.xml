@@ -1,0 +1,129 @@
+<openerp>
+    <data>
+        <!-- Inherit quotation report (from module sale) -->
+        <template id="payslip_custom_report_demo" inherit_id="hr_payroll.report_payslip">
+	    <!-- Finds the first table with as class table table-condensed and gives the ability to modify it
+		 This will replace everything withing tr (including tr)-->
+	    <xpath expr="//span[@t-field='o.employee_id.otherid']" position="replace">
+	    	<span t-field="o.employee_id.bank_account_id"/>
+	    </xpath>
+	    <xpath expr="//table[@class='table table-condensed table-bordered']//tr[1]" position="after">
+			<tr>
+            <td><strong>Employee Code</strong></td>
+            <td><span t-field="o.employee_id.otherid"/></td>
+            <td><strong>Employee Status</strong></td>
+            <td><span t-field="o.employee_id.employee_status"/></td>
+            </tr>  
+            <tr>
+            <td><strong>Date Of Joining</strong></td>
+            <td><span t-field="o.employee_id.joining_date"/></td>
+            <td><strong>Cost Centre</strong></td>
+            <td><span t-field="o.employee_id.cost_centre"/></td>
+            </tr> 
+	    </xpath>
+	    <xpath expr="//table[@class='table table-condensed']" position="replace">
+	    	<div class="col-xs-6">
+                        
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                        	<tr><strong>Gross Salary</strong></tr>
+                            <tr>
+                                <th>Description</th>
+                                <th>Rupee</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                            <t t-set="gross_salary" t-value="0"/>
+                            <tr t-foreach="get_payslip_lines(o.line_ids)" t-as="p">
+                                <t t-if="p.category_id.code != 'DED' and p.category_id.code != 'RMB' and p.category_id.code != 'NET'">
+                                <td><span t-field="p.name"/></td>
+                                <td><span t-esc="formatLang(p.total, currency_obj=o.company_id.currency_id)"/></td>
+                                <t t-set="gross_salary" t-value="gross_salary+p.total"/>
+                                </t>
+                            </tr>
+                            <tr style="background-color:grey;border: 1px solid grey;">
+                                <td>Gross Salary</td>
+                                <td><t t-esc="gross_salary"/></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="col-xs-6">
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                        	<tr><strong>Deductions</strong></tr>
+                            <tr>
+                                <th>Description</th>
+                                <th>Rupee</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="deduction_sum" t-value="0"/>
+                            <tr t-foreach="get_payslip_lines(o.line_ids)" t-as="p">
+                                <t t-if="p.category_id.code == 'DED'">
+                                <td><span t-field="p.name"/></td>
+                                <td><span t-esc="formatLang(p.total, currency_obj=o.company_id.currency_id)"/></td>
+                                <t t-set="deduction_sum" t-value="deduction_sum+p.total"/> 
+                                </t>
+                            </tr>
+                            <tr style="background-color:grey;border: 1px solid grey;">
+                                <td>Total Deduction</td>
+                                <td><t t-esc="deduction_sum"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-6">
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                        	<tr><strong>Reimbursement</strong></tr>
+                            <tr>
+                                <th>Description</th>
+                                <th>Rupee</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="reimbursiment_sum" t-value="0"/>
+                            <tr t-foreach="get_payslip_lines(o.line_ids)" t-as="p">
+                                <t t-if="p.category_id.code == 'RMB'">
+                                <td><span t-field="p.name"/></td>
+                                <td><span t-esc="formatLang(p.total, currency_obj=o.company_id.currency_id)"/></td>
+                                <t t-set="reimbursiment_sum" t-value="reimbursiment_sum+p.total"/> 
+                                </t>
+                            </tr>
+                            <tr style="background-color:grey;border: 1px solid grey;">
+                                <td>Total Reimbursiment</td>
+                                <td><t t-esc="reimbursiment_sum"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-xs-6">
+                       <t t-set="net_value" t-value="0"/>
+                        <t t-foreach="get_payslip_lines(o.line_ids)" t-as="p">
+                            <t t-if="p.category_id.code == 'NET'">
+                                <t t-set="net_value" t-value="formatLang(p.total, currency_obj=o.company_id.currency_id)"/> 
+                            </t>
+                        </t>   
+
+                        <p><strong>Net Transfer to Bank : <t t-esc="net_value"/> </strong></p> 
+                           
+                            
+                </div>
+
+                <div class="col-xs-12" style="margin-top:10px;">
+                    <P style="background-color:grey;border: 1px solid grey;text-align:center">Message From Finance Department</P>
+                    <p class="text-centre"><span>This is legally privileged confidential document. Your are requested not to share it with any one inside/outside OMS. In case of any query; please contact the undersign manager.</span></p>
+                
+                </div>
+                <div class="col-xs-4 pull-right" style="margin-top:30px;">
+                    <p class="text-right" style="border-top:1px solid;padding-top:10px"><strong>Aamer Khurshid</strong></p>
+                    <p class="text-right"><strong>Manager Finance</strong></p>
+                </div>
+	    </xpath>
+        </template>
+    </data>
+</openerp>

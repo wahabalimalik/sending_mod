@@ -171,9 +171,15 @@ class tax_computation(models.Model):
 							'amount':key,
 							'tax_deduct_id': y.id,
 							})
-		self.income_under_ntr = sum(line.amount for line in self.tax_computation_ntr_id)
-		self.tax_deduct = sum(line.amount for line in self.tax_deduct_link_id)
+		self.income_under_ntr = sum(line.amount for line in self.tax_computation_ntr_id if line.tax_type != 'exempt')
+		self.exempt_income = sum(line.amount for line in self.tax_computation_ntr_id if line.tax_type == 'exempt')
+		self.tax_deduct = sum(line.amount for line in self.tax_deduct_link_id if line.tax_type == 'tax_ftr')
 		self.income_under_ftr = sum(line.amount for line in self.tax_computation_ftr_id)
+		self.tax_adjust = sum(line.amount for line in self.tax_deduct_link_id if line.tax_type == 'adjustable')
+		self.tax_deduct_min = sum(line.amount for line in self.tax_deduct_link_id if line.tax_type == 'minimum')
+		self.taxable_income = self.income_under_ntr - self.deductible_allowance
+		self.payable_tax = self.tax_liability + self.portion_of_minimum_tax
+
 	@api.multi
 	def get_tax_rate(self):
 		business_income =  sum(line.amount for line in self.tax_computation_ntr_id if line.tax_type!='exempt' and line.tax_type!='salary')
@@ -228,6 +234,7 @@ class tax_computation(models.Model):
 					tax_amount = taxable_amount * x.rate_of_tax/100
 					virtual_liability = tax_amount + x.fixed_tax_amount
 					self.portion_of_minimum_tax = self.tax_liability - virtual_liability
+
 	@api.multi
 	def update(self):
 		if self.total_sale != 0:

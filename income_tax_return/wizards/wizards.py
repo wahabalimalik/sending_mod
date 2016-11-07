@@ -47,8 +47,6 @@ class DedyYuristiawan(models.TransientModel):
             # ('y2019', '2019'),
             # ('y2020', '2020')
             ], default='y2016')
-    # def _default_session(self):
-    #     return 
     
     @api.multi
     def create_request(self):

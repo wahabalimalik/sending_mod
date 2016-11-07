@@ -1,0 +1,182 @@
+id,name,list_code
+__export__.institute_list_2, ACCA Pakistan,1
+__export__.institute_list_3," Aga Khan University, Medical College",2
+__export__.institute_list_4, Air University,3
+__export__.institute_list_5, Akhtar Saeed Medical and Dental College,4
+__export__.institute_list_6, Al-Khair University,5
+__export__.institute_list_7, Allama Iqbal Medical College,6
+__export__.institute_list_8, Allama Iqbal Open Univeristy,7
+__export__.institute_list_9, Amina Inayat Medical College,8
+__export__.institute_list_10, Army Medical College,9
+__export__.institute_list_11, Avicenna Medical College,10
+__export__.institute_list_12, Ayub Medical College,11
+__export__.institute_list_13, Bahauddin Zakariya University,12
+__export__.institute_list_14, Bahria University,13
+__export__.institute_list_15, Bahria University Medical and Dental College,14
+__export__.institute_list_16, Balochistan University of Engineering and Technology,15
+__export__.institute_list_17, Balochistan University of Information Technology and Management Sciences,16
+__export__.institute_list_18, Baqai Medical University,17
+__export__.institute_list_19, Beaconhouse National University,18
+__export__.institute_list_20, Bolan Medical College,19
+__export__.institute_list_21, Central Park Medical College,20
+__export__.institute_list_22, Chandka Medical College,21
+__export__.institute_list_23, City University of Science & Information Technology,22
+__export__.institute_list_24, CMH Lahore Medical College,23
+__export__.institute_list_25, College Of Digital Science,24
+__export__.institute_list_26, COMSATS Institute of Information Technology,25
+__export__.institute_list_27, Continental Medical College,26
+__export__.institute_list_28, Dadabhoy Institute of Higher Education,27
+__export__.institute_list_29, Dawood College of Engineering & Technology (DCET),28
+__export__.institute_list_30, Dow International Medical College,29
+__export__.institute_list_31, Dow Medical College,30
+__export__.institute_list_32, Fatima Jinnah Medical College,31
+__export__.institute_list_33, Fatima Jinnah Women University,32
+__export__.institute_list_34," Federal Urdu University of Arts, Sciences and Technology",33
+__export__.institute_list_35, FMH College of Medicine and Dentistry,34
+__export__.institute_list_36, Forman Christian College,35
+__export__.institute_list_37, Foundation University,36
+__export__.institute_list_38, Foundation University Medical College,37
+__export__.institute_list_39, Frontier Medical College,38
+__export__.institute_list_40, Frontier Women University,39
+__export__.institute_list_41, Gandhara University,40
+__export__.institute_list_42, Ghulam Ishaq Khan Institute of Engineering Sciences & Technology,41
+__export__.institute_list_43, Ghulam Muhammad Mahar Medical College,42
+__export__.institute_list_44, GIFT University,43
+__export__.institute_list_45, Gomal Medical College,44
+__export__.institute_list_46, Gomal University,45
+__export__.institute_list_47, Government College University,46
+__export__.institute_list_48, Government College University Faisalabad,47
+__export__.institute_list_49, Greenwich University,48
+__export__.institute_list_50, Hajvery University,49
+__export__.institute_list_51, Hamdard College of Medicine and Dentistry,50
+__export__.institute_list_52, Hamdard University,51
+__export__.institute_list_53," Hazara University, Dodhial",52
+__export__.institute_list_54, Imperial College of Business Studies,53
+__export__.institute_list_55, Independent Medical College,54
+__export__.institute_list_56, Indus Institute of Higher Education,55
+__export__.institute_list_57, Indus Valley School of Art and Architecture,56
+__export__.institute_list_58, Institute of Business Administration (IBA),57
+__export__.institute_list_59, Institute of Business Management (IoBM),58
+__export__.institute_list_60, Institute of Chartered Accountants of Pakistan,59
+__export__.institute_list_61, Institute of Cost & Management Accountancy of Pakistan (ICMAP),60
+__export__.institute_list_62, Institute of Management Sciences,61
+__export__.institute_list_63," Institute of Space Technology, Islamabad",62
+__export__.institute_list_64, International Islamic University,63
+__export__.institute_list_65, Iqra University,64
+__export__.institute_list_66, Islamabad Medical and Dental College,65
+__export__.institute_list_67, Islamia University,66
+__export__.institute_list_68, Islamic International Medical College,67
+__export__.institute_list_69, Isra University,68
+__export__.institute_list_70, Isra University (Faculty of Medicine and Allied Medical Sciences),69
+__export__.institute_list_71, Jinnah Medical and Dental College,70
+__export__.institute_list_72, Kabir Medical College,71
+__export__.institute_list_73, Karachi Medical and Dental College,72
+__export__.institute_list_74, Karachi School for Business & Leadership (KSBL),73
+__export__.institute_list_75, Karakurum International University,74
+__export__.institute_list_76, Khadim Ali Shah Bukhari Institute of Technology,75
+__export__.institute_list_77, Khyber Girls Medical College,76
+__export__.institute_list_78, Khyber Medical College,77
+__export__.institute_list_79, Khyber Medical University,78
+__export__.institute_list_80, King Edward Medical University,79
+__export__.institute_list_81, Kinnaird College for Women,80
+__export__.institute_list_82, Kohat University of Science & Technology,81
+__export__.institute_list_83, KUST Institute of Medical Sciences,82
+__export__.institute_list_84, Lahore College for Women University,83
+__export__.institute_list_85, Lahore Medical and Dental College,84
+__export__.institute_list_86, Lahore School of Economics,85
+__export__.institute_list_87, Lahore University of Management Sciences (LUMS),86
+__export__.institute_list_88, Liaquat College of Medicine and Dentistry,87
+__export__.institute_list_89, Liaquat National Medical College,88
+__export__.institute_list_90, Liaquat University of Medical and Health Sciences,89
+__export__.institute_list_91, LOGIX College,90
+__export__.institute_list_92, Mehran University of Engineering & Technology,91
+__export__.institute_list_93, Minhaj University,92
+__export__.institute_list_94, Mirpur University of Science & Technology (MUST),93
+__export__.institute_list_95, Mohammad Ali Jinnah University,94
+__export__.institute_list_96, Mohi-ud-Din Islamic University,95
+__export__.institute_list_97, Mohiuddin Islamic Medical College,96
+__export__.institute_list_98, Muhammad Medical College,97
+__export__.institute_list_99, Multan Medical and Dental College,98
+__export__.institute_list_100, National College of Arts,99
+__export__.institute_list_101," National Textile University, Faisalabad, (Federal Chartered)",100
+__export__.institute_list_102, National University of Modern Language (NUML),101
+__export__.institute_list_103, National University of Computer and Emerging Sciences,102
+__export__.institute_list_104, National University of Modern Languages,103
+__export__.institute_list_105, National University of Science and Technology,104
+__export__.institute_list_106, Nawaz Sharif Medical College,105
+__export__.institute_list_107, NED University of Engineering & Technology,106
+__export__.institute_list_108, Netsol Technology Institute,107
+__export__.institute_list_109, Newport Institute of Communication and Economics,108
+__export__.institute_list_110, Nishtar Medical College,109
+__export__.institute_list_111, Northern University,110
+__export__.institute_list_112, NUST Business School,111
+__export__.institute_list_113, NWFP Agricultural University,112
+__export__.institute_list_114, NWFP University of Engineering & Technology,113
+__export__.institute_list_115, PAF Karachi Institute of Economics & Technology (PAF-KIET),114
+__export__.institute_list_116, Pakistan Institute of Management,115
+__export__.institute_list_117, Pakistan Military Academy,116
+__export__.institute_list_118, Pakistan Naval Academy,117
+__export__.institute_list_119," Peoples Medical College, Nawabshah",118
+__export__.institute_list_120, Peshawar Medical College,119
+__export__.institute_list_121, Preston Institute of Management Sciences and Technology,120
+__export__.institute_list_122, Preston University,121
+__export__.institute_list_123, Punjab Medical College,122
+__export__.institute_list_124," Quaid-e-Awam University of Engineering, Science & Technology",123
+__export__.institute_list_125, Quaid-e-Azam Medical College,124
+__export__.institute_list_126, Quaid-i-Azam University,125
+__export__.institute_list_127, Qurtaba University of Science and Information Technology,126
+__export__.institute_list_128, Rashid Latif Medical College,127
+__export__.institute_list_129, Rawalpindi Medical College,128
+__export__.institute_list_130, Riphah International University,129
+__export__.institute_list_131, Saidu Medical College,130
+__export__.institute_list_132, Sardar Bahadur Khan Women University,131
+__export__.institute_list_133, Sargodha Medical College,132
+__export__.institute_list_134, Sarhad University of Science & Information Technology,133
+__export__.institute_list_135, SEECS,134
+__export__.institute_list_136, Services Institute of Medical Sciences,135
+__export__.institute_list_137, Shah Abdul Latif University,136
+__export__.institute_list_138, Shaheed Zulfikar Ali Bhutto Institute of Science & Technology (SZABIST),137
+__export__.institute_list_139, Shaikh Khalifa Bin Zayed Al-Nahyan Medical and Dental College,138
+__export__.institute_list_140, Shaikh Zayed Medical College,139
+__export__.institute_list_141, Shalamar Medical and Dental College,140
+__export__.institute_list_142, Sharif Medical and Dental College,141
+__export__.institute_list_143, Shifa College of Medicine,142
+__export__.institute_list_144, Sindh Agriculture University,143
+__export__.institute_list_145, Sindh Medical College,144
+__export__.institute_list_146, Sir Syed College of Medical Sciences,145
+__export__.institute_list_147, Sir Syed University Of Engg. & Technology Karachi.,146
+__export__.institute_list_148, Sukkur Institute of Business Administration,147
+__export__.institute_list_149, Textile Institute of Pakistan,148
+__export__.institute_list_150, The Superior College,149
+__export__.institute_list_151, University College of Medicine and Dentistry,150
+__export__.institute_list_152, University Medical and Dental College,151
+__export__.institute_list_153, University of Agriculture,152
+__export__.institute_list_154," University of Arid Agriculture, Murree Road",153
+__export__.institute_list_155, University of Azad Jammu and Kashmir (AJK),154
+__export__.institute_list_156, University of Balochistan,155
+__export__.institute_list_157, University of Central Punjab (UCP),156
+__export__.institute_list_158, University of East,157
+__export__.institute_list_159, University of Education,158
+__export__.institute_list_160," University of Engineering & Technology, Lahore",159
+__export__.institute_list_161," University Of Engineering & Technology, Taxila",160
+__export__.institute_list_162, University of Faisalabad,161
+__export__.institute_list_163, University of Gujrat,162
+__export__.institute_list_164, University of Health Sciences,163
+__export__.institute_list_165, University of Karachi,164
+__export__.institute_list_166, University of Lahore,165
+__export__.institute_list_167, University of Malakand,166
+__export__.institute_list_168, University of Management & Technology (UMT),167
+__export__.institute_list_169, University of Peshawar,168
+__export__.institute_list_170, University of Sargodha,169
+__export__.institute_list_171, University of Science & Technology Bannu,170
+__export__.institute_list_172, University of Sindh,171
+__export__.institute_list_173, University of South Asia,172
+__export__.institute_list_174, University of Swabi,173
+__export__.institute_list_175, University of the Punjab,174
+__export__.institute_list_176, University of Veterinary and Animal Sciences,175
+__export__.institute_list_177, Usman Institute of Technology (UIT),176
+__export__.institute_list_178, Virtual University of Pakistan,177
+__export__.institute_list_179, Wah Medical College,178
+__export__.institute_list_180, Women Medical College,179
+__export__.institute_list_181, Yusra Medical and Dental College,180
+__export__.institute_list_182, Ziauddin Medical University,181

@@ -28,6 +28,8 @@ class wealth_reconciliation_income(models.Model):
 		('taxable', 'Taxable'),
         ('exempt', 'Exempt'),
         ('ftr', 'FTR'),
+        ('minimum', 'Minimum'),
+        ('salary', 'Salary'),
         ])
 	sequence = fields.Integer(string ='Sequence')
 	_order   = 'sequence'

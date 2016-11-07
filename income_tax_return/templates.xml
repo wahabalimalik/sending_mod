@@ -704,9 +704,10 @@
         ======================================================================================-->
 
             <!--========================[Form View-START]=====================-->
-                <record model="ir.ui.view" id="tax_computation_form_view">
+                <record id="tax_computation_form_view" model="ir.ui.view">
                     <field name="name">tax_computation_form</field>
                     <field name="model">tax.computation</field>
+                    <field name="type">form</field>
                     <field name="arch" type="xml">
                         <header>
                             <button name="update_computation" type="object" string="Update Computation"/>
@@ -716,13 +717,11 @@
                         <form string="Course Form">
                             <sheet>
                                 <group col="4">
-                                    <!-- <group colspan="2" col="2"> -->
                                         <field name="client_name"/>
                                         <field name="tax_year"/>
                                         <field name="comparative_id"/>
                                         <field name="group"/>
                                         <field name="custom_seq" invisible = "1"/>
-                                    <!-- </group> -->
                                 </group>
                                 <notebook col="4">
                                         <page string="Tax Computation" colspan="4">
@@ -743,6 +742,7 @@
                                                 <field name="refund_adjust"/>
                                                 <field name="tax_ratio"/>
                                                 <field name="rebate"/>
+                                                <field name="admitted_tax"/>
                                             </group>
                                             <group name="tax_under_ntr" string="Tax under FTR" col="2">
                                                 <field name="income_under_ftr"/>
