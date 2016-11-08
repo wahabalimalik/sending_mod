@@ -1,0 +1,51 @@
+<openerp>
+    <data>
+        <record id="hr_employee_adding_custom_features_form_view" model="ir.ui.view">
+            <field name="name">hr_employee_adding_custom_features_form_view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='birthday']" position="after">
+                    <field name="age"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--========================[Form View-START]=====================-->
+            <record id="cost_centre_form_view" model="ir.ui.view">
+                <field name="name">cost_centre_form_view</field>
+                <field name="model">cost_centre.cost_centre</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="Cost Centre">
+                        <sheet>
+                            <group name="group_top">
+                                <group name="group_left">                               
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="working_address"/>
+                                </group>
+                            </group>
+                        </sheet>
+                    </form>
+                </field>
+            </record>
+        <!--************************[Form View-ENDS]*************************-->
+
+        <!--========================[Action-START]========================-->
+
+            <record model="ir.actions.act_window" id="cost_centre_action">
+                <field name="name">Cost Centre</field>
+                <field name="res_model">cost_centre.cost_centre</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+            </record>
+        <!--************************[Action-ENDS]*************************-->
+
+        <!--========================[Menu-START]==========================-->
+            
+            <menuitem name="Cost Centre" id="oms_hr_child_child" parent="hr.menu_hr_main" action="cost_centre_action" sequence="3"/>
+        <!--************************[Menu-ENDS]***************************-->
+    </data>
+</openerp>

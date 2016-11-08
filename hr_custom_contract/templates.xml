@@ -302,6 +302,7 @@
                         </group>
                         <group>
                             <field name="total_experience"/>
+                            <field name="oms_experience"/>
                         </group>
                     </page>
                 </xpath>

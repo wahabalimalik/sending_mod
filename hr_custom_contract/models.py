@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from openerp import models, fields, api
 import datetime
 from datetime import date, datetime, timedelta
@@ -23,8 +22,6 @@ class year_list(models.Model):
     name = fields.Char(string='Create Year')
     list_code = fields.Integer(string='Year Code')
 
-
-
 class hr_custom_contract(models.Model):
 	_inherit = 'hr.contract'
 	bonus = fields.Float('Bonus')
@@ -46,9 +43,7 @@ class hr_custom_contract(models.Model):
 	mobile_expenses = fields.Float('Mobile Expenses')
 	days_worked = fields.Char('Days Worked')
 
-
 class hr_custom_employee(models.Model):
-	#_name = 'hr.custom.employee'
 	_inherit = 'hr.employee'
 	show_engineer = fields.Boolean('Is an Engineer?')
 	engineer = fields.Char('PEC #', size=64)
@@ -103,7 +98,6 @@ class hr_custom_employee(models.Model):
 	('mobile_num', 'unique(mobile_num)', 'This Mobile number already exists!')
 	]
 
-
 class employee_qualification(models.Model):
 	_name = 'employee_qualification'
 	qualification = fields.Many2one('qualification.list','Qualification')
@@ -111,15 +105,12 @@ class employee_qualification(models.Model):
 	institue = fields.Many2one('institute.list','Institue')
 	employee_qualification_id = fields.Many2one('hr.employee','Employee Qualification')
 
-
-
 class employee_certification(models.Model):
 	_name = 'employee_certification'
 	certification = fields.Char('Certification')
 	year = fields.Many2one('year.list','Year')
 	conducting_institute = fields.Many2one('institute.list','Conducting Institute')
 	employee_certification_id = fields.Many2one('hr.employee','Employee Certification')
-
 
 class employee_experience(models.Model):
 	_name = 'employee_experience'
@@ -142,9 +133,6 @@ class employee_experience(models.Model):
 	experience_to = fields.Date('Experience To')
 	total_experience_diff = fields.Char('Total')
 	employee_experience_id = fields.Many2one('hr.employee','Employee Experience')
-
-
-#custom fields in hr.paylsip
 
 class hr_custom_contract_payslip(models.Model):
 	_inherit = 'hr.payslip'
