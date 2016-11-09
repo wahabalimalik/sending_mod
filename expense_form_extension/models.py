@@ -3,7 +3,8 @@
 from openerp import models, fields, api
 from openerp.exceptions import ValidationError
 from openerp.exceptions import Warning
-from datetime import datetime as dt
+import datetime as dt
+from datetime import date
 from dateutil import relativedelta as rd
 
 class expense_form_extension(models.Model):
@@ -101,13 +102,14 @@ class loan_management(models.Model):
 		self.pringle.unlink()
 		nn = str(self.employee_id.name)
 		active_class =self.env['hr.payslip.line'].search([('employee_id','=',nn)])
-		start_date_1  = dt.strptime(self.loan_start_date, "%Y-%m-%d")
-		end_date_1   = dt.strptime(self.loan_end_date, "%Y-%m-%d")
+		start_date_1  = dt.datetime.strptime(self.loan_start_date, "%Y-%m-%d")
+		end_date_1   = dt.datetime.strptime(self.loan_end_date, "%Y-%m-%d")
+
 		for x in active_class:
 			start_date = str(x.slip_id.date_from)
-			end_date = str(x.slip_id.date_to)
-			start_date = dt.strptime(start_date[2:], "%y-%m-%d")
-			end_date   = dt.strptime(end_date[2:], "%y-%m-%d")
+			end_date   = str(x.slip_id.date_to)
+			start_date = dt.datetime.strptime(start_date[2:], "%y-%m-%d")
+			end_date   = dt.datetime.strptime(end_date[2:], "%y-%m-%d")
 			if x.code == 'loan_ded' and start_date >= start_date_1 and end_date_1>=end_date:
 				for y in self:
 					y.pringle.create({
@@ -117,10 +119,15 @@ class loan_management(models.Model):
 						'amount'   : x.amount,
 						'cringle'  : y.id
 						})
+
+		difference = rd.relativedelta(end_date_1,start_date_1)
+		months = "{0.months}".format(difference)
+		years = "{0.years}".format(difference)
+		months = int(years) * 12 + int(months)
+		self.installments =  months
+
 		# ---------------------------------------------------------
-		r = rd.relativedelta(end_date_1, start_date_1)
-		self.installments = r.months +1
-		# ---------------------------------------------------------
+
 		if self.loan != False and self.installments != 0:
 			self.amount_per_month= self.advance / self.installments
 		elif self.loan != False and self.installments == 0:
