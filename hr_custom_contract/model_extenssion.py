@@ -8,7 +8,7 @@ class hr_oms(models.Model):
     age = fields.Char()
     oms_experience  = fields.Integer(string ="OMS Experience :")
     @api.onchange('birthday','family_id','employee_expert_id')
-    def _onchange_birthday(self):
+    def _onchange_things(self):
     	if(self.birthday):
     		difference = rd.relativedelta(dt.date(int(str(dt.datetime.now())[0:4]),int(str(dt.datetime.now())[5:7]),int(str(dt.datetime.now())[8:10])),dt.date(int(str(self.birthday)[0:4]),int(str(self.birthday)[5:7]),int(str(self.birthday)[8:])))
     		self.age = "{0.years}".format(difference)
@@ -20,7 +20,7 @@ class hr_oms(models.Model):
     			self.children = no_of_kids
 
     	self.total_experience = sum(int(x.total_experience_diff) for x in self.employee_expert_id if x.total_experience_diff)
-    	self.oms_experience   = sum(int(x.total_experience_diff) for x in self.employee_expert_id if x.total_experience_diff and (x.company == "OMS" or x.company =="oms"))
+    	self.oms_experience   = sum(int(x.total_experience_diff) for x in self.employee_expert_id if x.total_experience_diff and (x.company == "OMS" or x.company =="oms"  or x.company =="Oms"))
 
 
 class family_info(models.Model):
